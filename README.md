@@ -1,7 +1,29 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [JingChang-Document](#jingchang-document)
+  - [1 井畅服务端接口文档](#1-%E4%BA%95%E7%95%85%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3)
+  - [2 井畅钱包接口文档](#2-%E4%BA%95%E7%95%85%E9%92%B1%E5%8C%85%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3)
+    - [2.1 安装与引入](#21-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BC%95%E5%85%A5)
+    - [2.2 创建井通钱包或联盟链钱包](#22-%E5%88%9B%E5%BB%BA%E4%BA%95%E9%80%9A%E9%92%B1%E5%8C%85%E6%88%96%E8%81%94%E7%9B%9F%E9%93%BE%E9%92%B1%E5%8C%85)
+    - [2.3 验证井通钱包或联盟链钱包地址的合法性](#23-%E9%AA%8C%E8%AF%81%E4%BA%95%E9%80%9A%E9%92%B1%E5%8C%85%E6%88%96%E8%81%94%E7%9B%9F%E9%93%BE%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%E7%9A%84%E5%90%88%E6%B3%95%E6%80%A7)
+    - [2.4 验证井通钱包或联盟链钱包私钥的合法性](#24-%E9%AA%8C%E8%AF%81%E4%BA%95%E9%80%9A%E9%92%B1%E5%8C%85%E6%88%96%E8%81%94%E7%9B%9F%E9%93%BE%E9%92%B1%E5%8C%85%E7%A7%81%E9%92%A5%E7%9A%84%E5%90%88%E6%B3%95%E6%80%A7)
+    - [2.5 通过井通钱包私钥获得地址](#25-%E9%80%9A%E8%BF%87%E4%BA%95%E9%80%9A%E9%92%B1%E5%8C%85%E7%A7%81%E9%92%A5%E8%8E%B7%E5%BE%97%E5%9C%B0%E5%9D%80)
+  - [3 井畅RPC接口文档](#3-%E4%BA%95%E7%95%85rpc%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3)
+  - [4 井畅交易接口文档](#4-%E4%BA%95%E7%95%85%E4%BA%A4%E6%98%93%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3)
+    - [4.1 安装与引入](#41-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BC%95%E5%85%A5)
+    - [4.2 签名](#42-%E7%AD%BE%E5%90%8D)
+    - [4.3 初始化](#43-%E5%88%9D%E5%A7%8B%E5%8C%96)
+    - [4.4 创建挂单](#44-%E5%88%9B%E5%BB%BA%E6%8C%82%E5%8D%95)
+    - [4.5 取消挂单](#45-%E5%8F%96%E6%B6%88%E6%8C%82%E5%8D%95)
+    - [4.6 转账](#46-%E8%BD%AC%E8%B4%A6)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # JingChang-Document
 
 井畅接口文档
-[toc]
 
 ## 1 井畅服务端接口文档
 
@@ -139,7 +161,7 @@ const copyTx = Object.assign({}, tx)
 jingtumSignTx(copyTx, { seed: secret })
 ```
 签名函数可参考:
-[jingtumSignTx] (https://github.com/JCCDex/jcc_jingtum_lib/blob/master/src/local_sign.js)
+[jingtumSignTx](https://github.com/JCCDex/jcc_jingtum_lib/blob/master/src/local_sign.js)
 
 参数:
 以下参数封装成tx对象,传给签名函数
