@@ -180,7 +180,7 @@ hash|String|交易哈希
 {"hash":"9F1D72707EFBA863B8DAD487857E4D7B4E54E90CF6348BBEA5F32509C4390DE4"}
 ```
 
-#### 2 取消挂单
+#### 3 取消挂单
 
 ```javascript
 JCCExchange.cancelOrder(address, secret, orderSequence)
@@ -205,7 +205,7 @@ hash|String|交易哈希
 {"hash":"6E3D45E77EB20D73439D10958AF28A648DC49302FEE1212BB4D5E010624F554D"}
 ```
 
-#### 3 转账
+#### 4 转账
 
 ```javascript
 JCCExchange.transfer(address, secret, amount, memo, to, token, issuer)
