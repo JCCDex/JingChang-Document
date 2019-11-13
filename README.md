@@ -1,16 +1,17 @@
 # JingChang-Document
 
 井畅接口文档
+[toc]
 
-## 井畅服务端接口文档
+## 1 井畅服务端接口文档
 
 [文档](https://github.com/JCCDex/jcc_server_doc)
 
-## 井畅钱包接口文档
+## 2 井畅钱包接口文档
 
 [文档](https://github.com/JCCDex/jcc_wallet/blob/master/docs/jingtum.md)
 
-### 使用
+### 2.1 安装与引入
 
 ```javascript
 npm install jcc_wallet
@@ -18,7 +19,7 @@ import { jtWallet } from 'jcc_wallet'
 // const jtWallet = require('jcc_wallet').jtWallet
 ```
 
-#### 1 创建井通钱包或联盟链钱包
+### 2.2 创建井通钱包或联盟链钱包
 
 ```javascript
 jtWallet.createWallet(chain)
@@ -43,7 +44,7 @@ address|String|井通钱包或bizain钱包地址
 {"secret":"ssfd6zheHp6y8SEv5imhqvMoiQLiw", "address":"jaR7yuA6TA3aAh1d4gSUKgchh7KYyrUL98"}
 ```
 
-#### 2 验证井通钱包或联盟链钱包地址的合法性
+### 2.3 验证井通钱包或联盟链钱包地址的合法性
 
 ```javascript
 jtWallet.isValidAddress(address,chain)
@@ -67,7 +68,7 @@ isValid|Boolean|验证结果，合法为true,不合法为false
 true || false
 ```
 
-#### 3 验证井通钱包或联盟链钱包私钥的合法性
+### 2.4 验证井通钱包或联盟链钱包私钥的合法性
 
 ```javascript
 jtWallet.isValidSecret(secret,chain)
@@ -90,7 +91,7 @@ isValid|Boolean|验证结果，合法为true,不合法为false
 ```javascript
 true || false
 ```
-#### 4 通过井通钱包私钥获得地址
+### 2.5 通过井通钱包私钥获得地址
 
 ```javascript
 jtWallet.getAddress(secret,chain)
@@ -110,28 +111,57 @@ address|String|井通钱包或联盟链钱包地址,若私钥不合法则返回n
 
 返回示例:
 
-```json
-{"address":"jaR7yuA6TA3aAh1d4gSUKgchh7KYyrUL98"}
+```javascript
+address:"jaR7yuA6TA3aAh1d4gSUKgchh7KYyrUL98" || null
 ```
 
-## 井畅RPC接口文档
+## 3 井畅RPC接口文档
 
 [Node](https://github.com/JCCDex/jcc_rpc)
 
 [Java](https://github.com/JCCDex/jcc_rpc_java)
 
-## 井畅交易接口文档
+## 4 井畅交易接口文档
 
 [文档](https://github.com/JCCDex/jcc_exchange)
 
-### 使用
+### 4.1 安装与引入
 
 ```javascript
 npm install jcc_exchange
 import JCCExchange from "jcc_exchange"
 // const JCCExchange = require('jcc_exchange').JCCExchange
 ```
-### 1 初始化
+### 4.2 签名
+
+```javascript
+const copyTx = Object.assign({}, tx)
+jingtumSignTx(copyTx, { seed: secret })
+```
+签名函数可参考:
+[jingtumSignTx] (https://github.com/JCCDex/jcc_jingtum_lib/blob/master/src/local_sign.js)
+
+参数:
+以下参数封装成tx对象,传给签名函数
+
+参数名|参数类型|是否必须|描述
+--|:--:|--:|--:
+Account|String|是|井通钱包地址
+Fee|Number|是|交易费用(gas费)
+Flags|Number|是|交易标记(挂卖单时是0x00080000,其余情况是0)
+Platform|String|否|挂单平台方钱包地址，缺省为jDXCeSHSpZ9LiX6ihckWaYDeDt5hFrdTto(只有创建挂单时才有这个字段)
+TakerGets|Object或String|是|挂单付出的币种和数量(只有创建挂单时才有这个字段)
+TakerPays|Object或String|是|挂单得到的币种和数量(只有创建挂单时才有这个字段)
+OfferSequence|Number|是|交易序列号(只有取消挂单时才有这个字段)
+Amount|Object或String|是|转账的数量(只有转账时才有这个字段)
+Destination|String|是|转账目标钱包地址(只有转账时才有这个字段)
+Memos|Array或String|否|转账备注(只有转账时才有这个字段),当转账备注的数据类型是String时，Memos是数组
+TransactionType|String|是|交易类型 OfferCreate(创建挂单) OfferCancel(取消挂单) Payment(转账)
+
+有关签名参数具体可参考:
+[签名参数](https://github.com/JCCDex/jcc_exchange/blob/master/src/tx/index.ts)
+
+### 4.3 初始化
 
 ```javascript
 const hosts = ["localhost"];
@@ -146,10 +176,10 @@ JCCExchange.init(hosts, port, https, retry);
 --|:--:|--:|--:
 hosts|String|是|exchange服务器
 port|Number|是|exchange服务器端口号
-https|Boolean|是|开发环境为false,生产环境为true
+https|Boolean|是|true为https,false为http
 retry|Number|否|交易发生错误时重试次数，缺省3次
 
-#### 2 创建挂单
+### 4.4 创建挂单
 
 ```javascript
 JCCExchange.createOrder(address, secret, amount, base, counter, sum, type, platform, issuer)
@@ -176,11 +206,11 @@ hash|String|交易哈希
 
 返回示例:
 
-```json
-{"hash":"9F1D72707EFBA863B8DAD487857E4D7B4E54E90CF6348BBEA5F32509C4390DE4"}
+```javascript
+hash:"9F1D72707EFBA863B8DAD487857E4D7B4E54E90CF6348BBEA5F32509C4390DE4"
 ```
 
-#### 3 取消挂单
+### 4.5 取消挂单
 
 ```javascript
 JCCExchange.cancelOrder(address, secret, orderSequence)
@@ -201,11 +231,11 @@ hash|String|交易哈希
 
 返回示例:
 
-```json
-{"hash":"6E3D45E77EB20D73439D10958AF28A648DC49302FEE1212BB4D5E010624F554D"}
+```javascript
+hash:"6E3D45E77EB20D73439D10958AF28A648DC49302FEE1212BB4D5E010624F554D"
 ```
 
-#### 4 转账
+### 4.6 转账
 
 ```javascript
 JCCExchange.transfer(address, secret, amount, memo, to, token, issuer)
@@ -214,8 +244,8 @@ JCCExchange.transfer(address, secret, amount, memo, to, token, issuer)
 
 参数名|参数类型|是否必须|描述
 --|:--:|--:|--:
-address|String|是|用户自己的井通钱包地址
-secret|String|是|用户自己的井通钱包私钥
+address|String|是|转出井通钱包地址
+secret|String|是|转出井通钱包私钥
 amount|String|是|转账的数量
 memo|String|否|转账的备注
 to|String|是|转账的目标(接收方)井通钱包地址
@@ -230,6 +260,6 @@ hash|String|交易哈希
 
 返回示例:
 
-```json
-{"hash":"445821D60F9294E4ACF911D95166320D2F8EFFC6B4C6C133701B53272684D166"}
+```javascript
+hash:"445821D60F9294E4ACF911D95166320D2F8EFFC6B4C6C133701B53272684D166"
 ```
