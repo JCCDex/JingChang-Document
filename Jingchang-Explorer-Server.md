@@ -66,7 +66,7 @@
    data|object|查询结果|-|-
      &emsp;list|object|交易列表|-|-
      &emsp;&emsp;_id|string|交易哈希|-|-
-     &emsp;&emsp;type|string|交易类型|-|Payment/OfferCreate/OfferCancel<br>TrustSet/RelationSet/RelationDel<br>SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+     &emsp;&emsp;type|string|交易类型|-|Payment<br>OfferCreate<br>OfferCancel<br>TrustSet<br>RelationSet<br>RelationDel<br>SetBlackList<br>RemoveBlackList<br>ManageIssuer<br>SetRegularKey
      &emsp;&emsp;time|number|交易时间|-|-
      &emsp;&emsp;past|number|交易距现在过去的秒数|-|-
      &emsp;&emsp;account|string|交易发起方钱包地址|-|-
