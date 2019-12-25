@@ -71,8 +71,31 @@
      &emsp;&emsp;past|number|交易距现在过去的秒数|-|-
      &emsp;&emsp;account|string|交易发起方钱包地址|-|-
      &emsp;&emsp;succ|string|交易结果是否成功|"tesSUCCESS"表示交易成功|-
-     &emsp;&emsp;dest|string|转账对方地址|type="Payment"时存在|-
-     &emsp;&emsp;amount|[Amount](#Amount-Object)|转账币种和数量|type="Payment"时存在|-
+
+   1. 当type=`Payment`时，data.list包含
+
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         dest|string|转账对方地址|-|-
+         amount|[Amount](#Amount-Object)|转账币种和数量|-|-
+
+   2. 当type=`OfferCreate`时，data.list包含
+
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
+         takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
+         realGets|[Amount](#Amount-Object)|除去立即成交之后实际挂单付出币种和数量|-|-
+         realPays|[Amount](#Amount-Object)|除去立即成交之后实际挂单得到币种和数量|-|-
+         flag|number|买或卖|-|1:买<br>2:卖<br>0:未知
+
+   3. 当type=`OfferCancel`时，data.list包含
+
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         takerGets|[Amount](#Amount-Object)|撤消的该挂单付出币种和数量|-|-
+         takerPays|[Amount](#Amount-Object)|撤消的该挂单得到币种和数量|-|-
+         flag|number|买或卖|存在的前提是takerGets和takerPays存在|1:买<br>2:卖<br>0:未知
 
 #### 1.2 查询所有交易列表
 
