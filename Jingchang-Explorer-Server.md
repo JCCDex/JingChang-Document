@@ -266,15 +266,15 @@
       &emsp;list|Array|区块中包含的交易列表|字段说明参见交易哈希查询返回结果|-
       &emsp;count|Number|区块中包含的交易总数|-|-
       &emsp;info|Object|区块信息|-|-
-      &emsp;&emsp;_id|String|区块哈希|-|-
-      &emsp;&emsp;hashType|Number|哈希类型|1:区块哈希；2:交易哈希|1
-      &emsp;&emsp;upperHash|String|所属区块哈希|-|""
-      &emsp;&emsp;block|Number|区块的区块高度|-|-
-      &emsp;&emsp;time|Number|区块的关闭时间|-|-
-      &emsp;&emsp;past|Number|区块距现在过去的秒数|-|-
-      &emsp;&emsp;transNum|Number|区块中交易数量|-|-
-      &emsp;&emsp;parentHash|String|上一区块的哈希|-|-
-      &emsp;&emsp;totalCoins|String|SWTC的总量|客户端除以1000000后所得即是真实的SWTC总量（需要bignumber处理）|-
+      &emsp;&emsp;&emsp;&emsp;_id|String|区块哈希|-|-
+      &emsp;&emsp;&emsp;&emsp;hashType|Number|哈希类型|1:区块哈希；2:交易哈希|1
+      &emsp;&emsp;&emsp;&emsp;upperHash|String|所属区块哈希|-|""
+      &emsp;&emsp;&emsp;&emsp;block|Number|区块的区块高度|-|-
+      &emsp;&emsp;&emsp;&emsp;time|Number|区块的关闭时间|-|-
+      &emsp;&emsp;&emsp;&emsp;past|Number|区块距现在过去的秒数|-|-
+      &emsp;&emsp;&emsp;&emsp;transNum|Number|区块中交易数量|-|-
+      &emsp;&emsp;&emsp;&emsp;parentHash|String|上一区块的哈希|-|-
+      &emsp;&emsp;&emsp;&emsp;totalCoins|String|SWTC的总量|客户端除以1000000后所得即是真实的SWTC总量（需要bignumber处理）|-
 
 ### 4. 根据区块HASH查询其包含的交易列表
 
