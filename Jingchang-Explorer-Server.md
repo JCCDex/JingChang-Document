@@ -324,6 +324,18 @@
    uuid|String|是|-|-|唯一id
    w|String|是|-|-|钱包地址
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;_id|String|钱包地址|-|-
+   &emsp;(`token名称`_`发行方`)|Object|-|-|-
+   &emsp;&emsp;value|String|余额|-|-
+   &emsp;&emsp;frozen|String|冻结数量|-|-
+
 ### 5.2 指定钱包的当前委托单查询
 
 * route
