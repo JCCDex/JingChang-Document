@@ -9,7 +9,7 @@
 
 #### 1.1 查询最新的6个交易列表接口
 
-* url
+* route
 
    `/trans/new/:uuid`
 
@@ -25,7 +25,7 @@
 
 #### 1.2 查询所有交易列表接口
 
-* url
+* route
 
    `/trans/all/:uuid?p=&s=`
 
@@ -45,7 +45,7 @@
 
 #### 2.1 查询最新的6个区块
 
-* url
+* route
 
    `/block/new/:uuid`
 
@@ -61,7 +61,7 @@
 
 #### 2.2 查询所有区块信息列表
 
-* url
+* route
 
    `/block/all/:uuid?p=&s=`
 
@@ -79,7 +79,7 @@
 
 ### 3. 根据哈希查询交易详细
 
-* url
+* route
 
    `/hash/detail/:uuid?h=`
 
@@ -96,7 +96,7 @@
 
 ### 4. 根据区块HASH查询其包含的交易列表
 
-* url
+* route
 
    `/hash/trans/:uuid?p=&s=&n=&h=`
 
@@ -118,7 +118,7 @@
 
 #### 5.1 指定钱包的余额查询（包括所有Token的余额、所有Token的冻结数量）
 
-* url
+* route
 
    `/wallet/balance/:uuid?w=`
 
@@ -135,7 +135,7 @@
 
 ### 5.2 指定钱包的当前委托单查询
 
-* url
+* route
 
    `/wallet/offer/:uuid?p=&s=&c=&bs=&w=`
 
@@ -156,7 +156,7 @@
 
 #### 5.3 指定钱包的历史交易查询
 
-* url
+* route
 
    `/wallet/trans/:uuid?p=&s=&b=&e=&t=&bs=&c=&w=`
 
@@ -180,7 +180,7 @@
 
 #### 5.4 指定钱包收益分析
 
-* url
+* route
 
    `/wallet/profit/:uuid?t=&v=&w=`
 
@@ -200,7 +200,7 @@
 
 #### 6.1 获取所有tokens列表
 
-* url
+* route
 
    `/sum/all/:uuid?t=`
 
@@ -217,7 +217,7 @@
 
 ### 7. 获取某种token的100排名
 
-* url
+* route
 
    `/sum/list/:uuid?t=&p=&s=&b=&e=`
 
@@ -238,7 +238,7 @@
 
 ### 8. 查看自己排名
 
-* url
+* route
 
    `/sum/self/:uuid?t=&w=`
 
@@ -256,7 +256,7 @@
 
 ### 9. 查看银关地址发行过tokens
 
-* url
+* route
 
    `/wallet/fingate_tokenlist/:uuid?w=`
 
@@ -273,7 +273,7 @@
 
 ### 10. 查询某个钱包每天/月/年的send/receive的交易的某个tokens的笔数和数量
 
-* url
+* route
 
    `/sum/payment_summary/:uuid?w=&d=&dt=&t=&c=`
 
@@ -294,7 +294,7 @@
 
 ### 11. 查询某个token在某个时间段内的转账交易hash信息
 
-* url
+* route
 
    `/hash/payment_trans/:uuid?p=&s=&b=&e=&t=&c=`
 
@@ -316,7 +316,7 @@
 
 ### 12. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
 
-* url
+* route
 
    `/sum/payment_summary/:uuid?w=&b=&dt=&t=&c=`
 
@@ -338,17 +338,13 @@
 
 ### 13. 查询收费平台对应token的收费详情接口
 
-* url
+* route
 
    `/wallet/fee_config/:uuid?p=&w=&k=&s=&t=`
 
 * method
 
    `get`
-
-* example
-
-    `https://stats.jccdex.cn/wallet/fee_config/123456?p=0&w=jGrVFKACsF7W6PhMHn5upPN7fPUyG8NVKx`
 
 * 请求参数说明
 
