@@ -68,7 +68,7 @@
    data|Object|查询结果|-|-
      &emsp;list|Array|交易列表|-|-
      &emsp;&emsp;_id|String|交易哈希|-|-
-     &emsp;&emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+     &emsp;&emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
      &emsp;&emsp;time|Number|交易时间|-|-
      &emsp;&emsp;past|Number|交易距现在过去的秒数|-|-
      &emsp;&emsp;account|String|交易发起方钱包地址|-|-
@@ -89,7 +89,7 @@
          takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
          realGets|[Amount](#Amount-Object)|除去立即成交之后实际挂单付出币种和数量|-|-
          realPays|[Amount](#Amount-Object)|除去立即成交之后实际挂单得到币种和数量|-|-
-         flag|Number|买或卖|-|1:买<br>2:卖<br>0:未知
+         flag|Number|买或卖|-|[Flag Type](#Flag-Type)
 
    3. 当type=`OfferCancel`时，`data.list`包含
 
@@ -97,7 +97,7 @@
          :--|:--:|:--|:--|:--
          takerGets|[Amount](#Amount-Object)|撤消的该挂单付出币种和数量|可能不存在|-
          takerPays|[Amount](#Amount-Object)|撤消的该挂单得到币种和数量|可能不存在|-
-         flag|Number|买或卖|存在的前提是takerGets和takerPays存在|1:买<br>2:卖<br>0:未知
+         flag|Number|买或卖|存在的前提是takerGets和takerPays存在|[Flag Type](#Flag-Type)
 
    4. 建议除了上面的3种类型交易，其它交易类型，画面均显示为：未知交易
 
@@ -214,7 +214,7 @@
       &emsp;block|Number|所属区块的区块高度|-|-
       &emsp;time|Number|交易发生的时间|-|-
       &emsp;past|Number|交易距现在过去的秒数|-|-
-      &emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+      &emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
       &emsp;account|String|交易发起方钱包地址|-|-
       &emsp;seq|Number|在交易发起方钱包所有交易中的序号|-|-
       &emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
@@ -233,7 +233,7 @@
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
-         flag|Number|买/卖|-|1:买；2:卖；0:未知
+         flag|Number|买/卖|-|[Flag Type](#Flag-Type)
          takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
          takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
          realGets|[Amount](#Amount-Object)|实际挂单付出币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
@@ -244,7 +244,7 @@
          affectedNodes|Array|挂单立即成交部分（以被动成交钱包的角度）|根据该数组分析出matchGets、matchPays以及matchFlag|-
          &emsp;account|String|被动成交的钱包地址|-|-
          &emsp;seq|Number|该被动成交的挂单序号|-|-
-         &emsp;flag|Number|该被动成交的挂单性质|-|1:买；2:卖；0:未知
+         &emsp;flag|Number|该被动成交的挂单性质|-|[Flag Type](#Flag-Type)
          &emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
          &emsp;final|Object|被动成交后的数量|-|-
 
@@ -371,7 +371,7 @@
    &emsp;&emsp;past|Number|距现在过去的秒数|-|-
    &emsp;&emsp;hash|String|挂单哈希|-|-
    &emsp;&emsp;block|Number|区块高度|-|-
-   &emsp;&emsp;flag|Number|买/卖|-|1:买；2:卖；0:未知
+   &emsp;&emsp;flag|Number|买/卖|-|[Flag Type](#Flag-Type)
    &emsp;&emsp;takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
    &emsp;&emsp;takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
 
@@ -407,7 +407,7 @@
    msg|String|消息描述|-|-
    data|Object|查询结果|-|-
    &emsp;list|Array|区块中包含的交易列表|-|-
-   &emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+   &emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
    &emsp;time|Number|交易发生的时间|-|-
    &emsp;past|Number|交易距现在过去的秒数|-|-
    &emsp;hash|String|交易哈希|-|-
@@ -427,7 +427,7 @@
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
-         flag|Number|买/卖|-|1:买；2:卖；0:未知
+         flag|Number|买/卖|-|[Flag Type](#Flag-Type)
          matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
          takerGets|[Amount](#Amount-Object)|创建挂单时付出的币种和数量|-|-
          takerPays|[Amount](#Amount-Object)|创建挂单时得到的币种和数量|-|-
@@ -440,7 +440,7 @@
 
         字段|类型|描述|备注|可能值
         :--|:--:|:--|:--|:--
-        flag|Number|买/卖|-|1:买；2:卖；0:未知
+        flag|Number|买/卖|-|[Flag Type](#Flag-Type)
         matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
         takerGets|[Amount](#Amount-Object)|被动成交前挂单的付出币种和数量|-|-
         takerPays|[Amount](#Amount-Object)|被动成交前挂单的得到币种和数量|-|-
@@ -454,7 +454,7 @@
         字段|类型|描述|备注|可能值
         :--|:--:|:--|:--|:--
         offerSeq|Number|被撤消挂单的序号|-|-
-        flag|Number|被撤消挂单的交易性质|-|1:买；2:卖；0:未知
+        flag|Number|被撤消挂单的交易性质|-|[Flag Type](#Flag-Type)
         takerGets|[Amount](#Amount-Object)|被撤消挂单的付出币种和数量|账本中经常出现一个挂单被多次撤消的情况，所以该字段可能没有|-
         takerPays|[Amount](#Amount-Object)|被撤消挂单的得到币种和数量|账本中经常出现一个挂单被多次撤消的情况，所以该字段可能没有|-
 
@@ -633,7 +633,7 @@
    &emsp;&emsp;hashType|Number|哈希类型|1:区块哈希<br>2:交易哈希|2
    &emsp;&emsp;time|Number|时间戳|与当前时间换算关系new Date((time+946684800)*1000)|-
    &emsp;&emsp;index|Number|区块内的交易编号|-|-
-   &emsp;&emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+   &emsp;&emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
    &emsp;&emsp;account|String|交易发起方钱包地址|-|-
    &emsp;&emsp;seq|Number|交易序列号|-|-
    &emsp;&emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
@@ -766,7 +766,7 @@
    issuer|String|发行方地址
    value|String|数量
 
-### Transaction Options
+### Transaction Type
 
 类型|描述|可能值
 |:--:|:--|:--
@@ -778,3 +778,9 @@ String|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet<br>Rela
 :--:|:--:|:--|:--
 MemoData|String|备注内容|16进制，[How to parse](https://github.com/swtcca/swtclib/blob/master/packages/swtc-serializer/src/types/STMemo.ts#L80)
 MemoType|String|备注类型|16进制，[How to parse](https://github.com/swtcca/swtclib/blob/master/packages/swtc-serializer/src/types/STMemo.ts#L80)
+
+### Flag Type
+
+类型|描述|可能值
+|:--:|:--|:--
+Number|买或卖|1:买<br>2:卖<br>0:未知
