@@ -61,7 +61,7 @@
 
    字段|类型|描述|备注|可能值
    :--|:--:|:--|:--|:--
-   code|String|-|-|"0"表示成功
+   code|String|-|"0"表示成功|-
    msg|String|消息描述|-|-
    data|Object|查询结果|-|-
      &emsp;list|Array|交易列表|-|-
