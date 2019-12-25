@@ -530,6 +530,16 @@
    b|String|否|-|-|开始日期，形如YYYY-MM-DD
    e|String|否|-|-|结束日期，形如YYYY-MM-DD
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Array|查询结果|-|-
+   &emsp;totalsupply|Number|总发行量|-|-
+   &emsp;holders|Number|对应钱包持有数量|-|-
+
 ### 8. 查看自己排名
 
 * route
