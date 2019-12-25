@@ -257,6 +257,8 @@
 
    2. 如果是区块哈希
 
+      <style> table th:first-of-type { width: 100px; } </style>
+
       字段|类型|描述|备注|可能值
       :--|:--:|:--|:--|:--
       code|String|-|"0"表示成功|-
