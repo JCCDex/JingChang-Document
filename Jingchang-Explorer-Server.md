@@ -357,6 +357,23 @@
    c|String|否|-|-|交易对（可以不传值，不传值表示查询全部类型交易对的委托单。形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录）
    bs|Number|否|0:买或卖<br>1:买<br>2:卖|0|委托性质,如果传值必须与c参数一起使用
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;count|Number|委托单个数|-|-
+   &emsp;list|Array|区块中包含的交易列表|-|-
+   &emsp;&emsp;time|Number|委托单的挂单时间（所属区块的时间）|-|-
+   &emsp;&emsp;past|Number|距现在过去的秒数|-|-
+   &emsp;&emsp;hash|String|挂单哈希|-|-
+   &emsp;&emsp;block|Number|区块高度|-|-
+   &emsp;&emsp;flag|Number|买/卖|-|1:买；2:卖；0:未知
+   &emsp;&emsp;takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
+   &emsp;&emsp;takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
+
 #### 5.3 指定钱包的历史交易查询
 
 * route
