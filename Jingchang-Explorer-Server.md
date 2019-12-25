@@ -242,11 +242,11 @@
          matchPays|[Amount](#Amount-Object)|实际成交得到币种和数量|若没有实际成交则该字段不存在|-
          matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
          affectedNodes|Array|挂单立即成交部分（以被动成交钱包的角度）|根据该数组分析出matchGets、matchPays以及matchFlag|-
-         &emsp;account|String|被动成交的钱包地址|-|-
-         &emsp;seq|Number|该被动成交的挂单序号|-|-
-         &emsp;flag|Number|该被动成交的挂单性质|-|[Flag Type](#Flag-Type)
-         &emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
-         &emsp;final|Object|被动成交后的数量|-|-
+         &emsp;&emsp;account|String|被动成交的钱包地址|-|-
+         &emsp;&emsp;seq|Number|该被动成交的挂单序号|-|-
+         &emsp;&emsp;flag|Number|该被动成交的挂单性质|-|[Flag Type](#Flag-Type)
+         &emsp;&emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
+         &emsp;&emsp;final|Object|被动成交后的数量|-|-
 
       3. 当type=`OfferCancel`时，`data`包含
 
