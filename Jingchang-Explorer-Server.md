@@ -1,6 +1,7 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD046 -->
+<!-- markdownlint-disable MD029 -->
 
 # Jingchang Explorer Server
 
@@ -214,47 +215,46 @@
       &emsp;time|Number|交易发生的时间|-|-
       &emsp;past|Number|交易距现在过去的秒数|-|-
       &emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
-      &emsp;past|Number|交易距现在过去的秒数|-|-
       &emsp;account|String|交易发起方钱包地址|-|-
       &emsp;seq|Number|在交易发起方钱包所有交易中的序号|-|-
       &emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
       &emsp;succ|String|交易是否成功|"tesSUCCESS"表示交易成功|-
 
-      * 当type=`Payment`时，`data`包含
+      1. 当type=`Payment`时，`data`包含
 
-        字段|类型|描述|备注|可能值
-        :--|:--:|:--|:--|:--
-        dest|String|转账目的钱包地址|-|-
-        amount|[Amount](#Amount-Object)|转账币种和数量|-|-
-        memos|Array|转账备注|-|-
-        &emsp;Memo|[Memo](#Memo-Object)|备注内容|-|-
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         dest|String|转账目的钱包地址|-|-
+         amount|[Amount](#Amount-Object)|转账币种和数量|-|-
+         memos|Array|转账备注|-|-
+         &emsp;Memo|[Memo](#Memo-Object)|备注内容|-|-
 
-      * 当type=`OfferCreate`时，`data`包含
+      2. 当type=`OfferCreate`时，`data`包含
 
-        字段|类型|描述|备注|可能值
-        :--|:--:|:--|:--|:--
-        flag|Number|买/卖|-|1:买；2:卖；0:未知
-        takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
-        takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
-        realGets|[Amount](#Amount-Object)|实际挂单付出币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
-        realPays|[Amount](#Amount-Object)|实际挂单得到币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
-        matchGets|[Amount](#Amount-Object)|实际成交付出币种和数量|若没有实际成交则该字段不存在|-
-        matchPays|[Amount](#Amount-Object)|实际成交得到币种和数量|若没有实际成交则该字段不存在|-
-        matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
-        affectedNodes|Array|挂单立即成交部分（以被动成交钱包的角度）|根据该数组分析出matchGets、matchPays以及matchFlag|-
-        &emsp;account|String|被动成交的钱包地址|-|-
-        &emsp;seq|Number|该被动成交的挂单序号|-|-
-        &emsp;flag|Number|该被动成交的挂单性质|-|1:买；2:卖；0:未知
-        &emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
-        &emsp;final|Object|被动成交后的数量|-|-
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         flag|Number|买/卖|-|1:买；2:卖；0:未知
+         takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
+         takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
+         realGets|[Amount](#Amount-Object)|实际挂单付出币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
+         realPays|[Amount](#Amount-Object)|实际挂单得到币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
+         matchGets|[Amount](#Amount-Object)|实际成交付出币种和数量|若没有实际成交则该字段不存在|-
+         matchPays|[Amount](#Amount-Object)|实际成交得到币种和数量|若没有实际成交则该字段不存在|-
+         matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
+         affectedNodes|Array|挂单立即成交部分（以被动成交钱包的角度）|根据该数组分析出matchGets、matchPays以及matchFlag|-
+         &emsp;account|String|被动成交的钱包地址|-|-
+         &emsp;seq|Number|该被动成交的挂单序号|-|-
+         &emsp;flag|Number|该被动成交的挂单性质|-|1:买；2:卖；0:未知
+         &emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
+         &emsp;final|Object|被动成交后的数量|-|-
 
-      * 当type=`OfferCancel`时，`data`包含
+      3. 当type=`OfferCancel`时，`data`包含
 
-        字段|类型|描述|备注|可能值
-        :--|:--:|:--|:--|:--
-        offerSeq|Number|取消挂单的序号|-|-
-        takerGets|[Amount](#Amount-Object)|取消挂单的付出币种和数量|-|-
-        takerPays|[Amount](#Amount-Object)|取消挂单的得到币种和数量|-|-
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         offerSeq|Number|取消挂单的序号|-|-
+         takerGets|[Amount](#Amount-Object)|取消挂单的付出币种和数量|-|-
+         takerPays|[Amount](#Amount-Object)|取消挂单的得到币种和数量|-|-
 
    2. 如果是区块哈希
 
@@ -416,27 +416,27 @@
    &emsp;success|String|交易是否成功|"tesSUCCESS"表示成功|-
    &emsp;seq|Number|交易序号|对于OfferAffect和Receive，该字符无意义|-
 
-      * 当type=`Send`或`Receive`时，`data.list`包含
+   1. 当type=`Send`或`Receive`时，`data.list`包含
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
          account|String|对方钱包地址|-|-
          amount|[Amount](#Amount-Object)|支付或收到的币种和数量|-|-
 
-      * 当type=`OfferCreate`时，`data.list`包含
+   2. 当type=`OfferCreate`时，`data.list`包含
 
-        字段|类型|描述|备注|可能值
-        :--|:--:|:--|:--|:--
-        flag|Number|买/卖|-|1:买；2:卖；0:未知
-        matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
-        takerGets|[Amount](#Amount-Object)|创建挂单时付出的币种和数量|-|-
-        takerPays|[Amount](#Amount-Object)|创建挂单时得到的币种和数量|-|-
-        takerGetsFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的付出币种和数量|如果挂单全部成交，则没有该字段|-
-        takerPaysFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的得到币种和数量|如果挂单全部成交，则没有该字段|-
-        takerGetsMatch|[Amount](#Amount-Object)|立即成交部分的付出币种和数量|如果没有立即成交，则没有该字段|-
-        takerPaysMatch|[Amount](#Amount-Object)|立即成交部分的得到币种和数量|如果没有立即成交，则没有该字段|-
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         flag|Number|买/卖|-|1:买；2:卖；0:未知
+         matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
+         takerGets|[Amount](#Amount-Object)|创建挂单时付出的币种和数量|-|-
+         takerPays|[Amount](#Amount-Object)|创建挂单时得到的币种和数量|-|-
+         takerGetsFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的付出币种和数量|如果挂单全部成交，则没有该字段|-
+         takerPaysFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的得到币种和数量|如果挂单全部成交，则没有该字段|-
+         takerGetsMatch|[Amount](#Amount-Object)|立即成交部分的付出币种和数量|如果没有立即成交，则没有该字段|-
+         takerPaysMatch|[Amount](#Amount-Object)|立即成交部分的得到币种和数量|如果没有立即成交，则没有该字段|-
 
-      * 当type=`OfferAffect`时，`data.list`包含
+   3. 当type=`OfferAffect`时，`data.list`包含
 
         字段|类型|描述|备注|可能值
         :--|:--:|:--|:--|:--
@@ -449,7 +449,7 @@
         takerGetsMatch|[Amount](#Amount-Object)|被动成交部分的付出币种和数量|-|-
         takerPaysMatch|[Amount](#Amount-Object)|被动成交部分的得到币种和数量|-|-
 
-      * 当type=`OfferCancel`时，`data.list`包含
+   4. 当type=`OfferCancel`时，`data.list`包含
 
         字段|类型|描述|备注|可能值
         :--|:--:|:--|:--|:--
@@ -662,7 +662,7 @@
    &emsp;num|Number|总笔数|-|-
    &emsp;amount|Number|总数量|-|-
 
-      1. 如果某个钱包有转出或收到某个token，这时若没有指定type类型，则会返回2条记录信息如果某个钱包有转出多个token，若没有指定token名称，则会返回多条记录。
+   1. 如果某个钱包有转出或收到某个token，这时若没有指定type类型，则会返回2条记录信息如果某个钱包有转出多个token，若没有指定token名称，则会返回多条记录。
 
 ### 12. 查询收费平台对应token的收费详情接口
 
