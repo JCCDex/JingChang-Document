@@ -66,7 +66,7 @@
    data|object|查询结果|-
      &emsp;&emsp;list|object|交易列表|-
      &emsp;&emsp;&emsp;&emsp;_id|string|交易哈希|-
-     &emsp;&emsp;&emsp;&emsp;type|string|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet<br>RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+     &emsp;&emsp;&emsp;&emsp;type|string|交易类型|Payment/OfferCreate/OfferCancel<br>TrustSet/RelationSet/RelationDel<br>SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
 
 #### 1.2 查询所有交易列表
 
