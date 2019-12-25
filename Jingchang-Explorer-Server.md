@@ -510,4 +510,4 @@
 
 类型|描述|可能值
 |:--:|:--|:--
-String|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet/RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+String|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet<br>RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
