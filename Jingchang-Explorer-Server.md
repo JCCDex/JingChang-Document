@@ -463,8 +463,8 @@
 
 ### Amount Object
 
-   字段|描述
-   :--:|:--:
-   currency|币种名称
-   issuer|发行方地址
-   value|数量
+   字段|类型|描述
+   :--:|:--:|:--
+   currency|String|币种名称
+   issuer|String|发行方地址
+   value|String|数量
