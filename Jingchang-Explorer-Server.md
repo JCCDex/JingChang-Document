@@ -1,5 +1,6 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD046 -->
 
 # Jingchang Explorer Server
 
@@ -398,6 +399,65 @@
    bs|Number|否|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
    w|String|是|-|-|钱包地址
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;list|Array|区块中包含的交易列表|-|-
+   &emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+   &emsp;time|Number|交易发生的时间|-|-
+   &emsp;past|Number|交易距现在过去的秒数|-|-
+   &emsp;hash|String|交易哈希|-|-
+   &emsp;block|Number|区块高度|-|-
+   &emsp;fee|String|交易gas费用|OfferAffect和Receive时，fee=""|-
+   &emsp;success|String|交易是否成功|"tesSUCCESS"表示成功|-
+   &emsp;seq|Number|交易序号|对于OfferAffect和Receive，该字符无意义|-
+
+      * 当type=`Send`或`Receive`时，`data.list`包含
+
+         字段|类型|描述|备注|可能值
+         :--|:--:|:--|:--|:--
+         account|String|对方钱包地址|-|-
+         amount|[Amount](#Amount-Object)|支付或收到的币种和数量|-|-
+
+      * 当type=`OfferCreate`时，`data.list`包含
+
+        字段|类型|描述|备注|可能值
+        :--|:--:|:--|:--|:--
+        flag|Number|买/卖|-|1:买；2:卖；0:未知
+        matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
+        takerGets|[Amount](#Amount-Object)|创建挂单时付出的币种和数量|-|-
+        takerPays|[Amount](#Amount-Object)|创建挂单时得到的币种和数量|-|-
+        takerGetsFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的付出币种和数量|如果挂单全部成交，则没有该字段|-
+        takerPaysFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的得到币种和数量|如果挂单全部成交，则没有该字段|-
+        takerGetsMatch|[Amount](#Amount-Object)|立即成交部分的付出币种和数量|如果没有立即成交，则没有该字段|-
+        takerPaysMatch|[Amount](#Amount-Object)|立即成交部分的得到币种和数量|如果没有立即成交，则没有该字段|-
+
+      * 当type=`OfferAffect`时，`data.list`包含
+
+        字段|类型|描述|备注|可能值
+        :--|:--:|:--|:--|:--
+        flag|Number|买/卖|-|1:买；2:卖；0:未知
+        matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
+        takerGets|[Amount](#Amount-Object)|被动成交前挂单的付出币种和数量|-|-
+        takerPays|[Amount](#Amount-Object)|被动成交前挂单的得到币种和数量|-|-
+        takerGetsFact|[Amount](#Amount-Object)|被动成交剩余部分的付出币种和数量|如果全部被动成交，则没有该字段|-
+        takerPaysFact|[Amount](#Amount-Object)|被动成交剩余部分的得到币种和数量|如果全部被动成交，则没有该字段|-
+        takerGetsMatch|[Amount](#Amount-Object)|被动成交部分的付出币种和数量|-|-
+        takerPaysMatch|[Amount](#Amount-Object)|被动成交部分的得到币种和数量|-|-
+
+      * 当type=`OfferCancel`时，`data.list`包含
+
+        字段|类型|描述|备注|可能值
+        :--|:--:|:--|:--|:--
+        offerSeq|Number|被撤消挂单的序号|-|-
+        flag|Number|被撤消挂单的交易性质|-|1:买；2:卖；0:未知
+        takerGets|[Amount](#Amount-Object)|被撤消挂单的付出币种和数量|账本中经常出现一个挂单被多次撤消的情况，所以该字段可能没有|-
+        takerPays|[Amount](#Amount-Object)|被撤消挂单的得到币种和数量|账本中经常出现一个挂单被多次撤消的情况，所以该字段可能没有|-
+
 #### 5.4 指定钱包收益分析
 
 * route
@@ -418,6 +478,10 @@
 
 ### 6. 持仓排行
 
+* 设计说明：后台设计一个数据库 skywell_sum目前存放两个表
+   1. tokens: 存放所有tokens列表
+   2. tokensSort: 存放所有tokens的前100数据，不够100显示所有，每天生成 一次数据，目前160多种tokens，每天增长7000多条，数据量不大，放在一个表
+
 #### 6.1 获取所有tokens列表
 
 * route
@@ -434,6 +498,16 @@
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|是|-|-|唯一id
    t|String|否|-|-|token名称
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;(key为token首字母或`num`)|Array|-|-|-
+   &emsp;&emsp;-|String|token名称和发行方地址，下划线连接|-|-
 
 ### 7. 获取某种token的100排名
 
@@ -474,6 +548,14 @@
    t|String|是|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
    w|String|是|-|-|钱包地址
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Number|个人排名| 如果没有持有，则data返回空|-
+
 ### 9. 查看银关地址发行过tokens
 
 * route
@@ -490,6 +572,17 @@
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|是|-|-|唯一id
    w|String|是|-|-|银关地址
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;(key为银关地址)|Array|-|-|-
+   &emsp;&emsp;currency|String|token名称|-|-
+   &emsp;&emsp;issuer|String|发行方地址|-|-
 
 ### 10. 查询某个token在某个时间段内的转账交易hash信息
 
@@ -513,6 +606,27 @@
    t|String|是|Payment|-|交易类型
    c|String|是|-|-|token名称
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;count|Number|查询结果的个数|-|-
+   &emsp;list|Array|-|-|-
+   &emsp;&emsp;_id|String|交易哈希|-|-
+   &emsp;&emsp;hashType|Number|哈希类型|1:区块哈希<br>2:交易哈希|2
+   &emsp;&emsp;time|Number|时间戳|与当前时间换算关系new Date((time+946684800)*1000)|-
+   &emsp;&emsp;index|Number|区块内的交易编号|-|-
+   &emsp;&emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+   &emsp;&emsp;account|String|交易发起方钱包地址|-|-
+   &emsp;&emsp;seq|Number|交易序列号|-|-
+   &emsp;&emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
+   &emsp;&emsp;succ|String|交易是否成功|"tesSUCCESS"表示交易成功|-
+   &emsp;&emsp;dest|String|对方钱包地址|-|-
+   &emsp;&emsp;amount|[Amount](#Amount-Object)|支付币种和数量|-|-
+
 ### 11. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
 
 * route
@@ -535,6 +649,21 @@
    t|String|否|Send/Receive|-|交易类型
    c|String|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
 
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Array|查询结果|-|-
+   &emsp;wallet|String|钱包地址|-|-
+   &emsp;token|String|token名称和发行方地址，下划线连接|-|-
+   &emsp;type|String|支付/收到|-|Send:支付；Receive:收到
+   &emsp;num|Number|总笔数|-|-
+   &emsp;amount|Number|总数量|-|-
+
+      1. 如果某个钱包有转出或收到某个token，这时若没有指定type类型，则会返回2条记录信息如果某个钱包有转出多个token，若没有指定token名称，则会返回多条记录。
+
 ### 12. 查询收费平台对应token的收费详情接口
 
 * route
@@ -555,6 +684,22 @@
    w|String|是|-|-|平台地址
    k|Number|否|1:gas费设置<br>2:手续费设置|2|收费类型
    t|String|否|-|-|token名称（SWT无需发行方，值为SWTC，其他token需要带发行方，币种大写, 如t=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;data[0]|Array|各币种收费列表|-|-
+   &emsp;&emsp;platform|String|平台方钱包地址|-|-
+   &emsp;&emsp;token|String|token名称和发行方地址，下划线连接|-|-
+   &emsp;&emsp;den|Number|费率分母|-|-
+   &emsp;&emsp;feeAccount|String|收费钱包地址|-|-
+   &emsp;&emsp;num|Number|费率分子|-|-
+   &emsp;&emsp;time|Number|设置时间|-|-
+   &emsp;data[1]|Number|符合条件数量|用于分组|-
 
 ## 附录
 
