@@ -59,14 +59,20 @@
 
 * 返回结果
 
-   字段|类型|描述|可能值
-   :--|:--:|:--|:--
-   code|string|"0"表示成功|-
-   msg|string|查询消息描述|-
-   data|object|查询结果|-
-     &emsp;list|object|交易列表|-
-     &emsp;&emsp;_id|string|交易哈希|-
-     &emsp;&emsp;type|string|交易类型|Payment/OfferCreate/OfferCancel<br>TrustSet/RelationSet/RelationDel<br>SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+   字段|类型|描述|可能值|备注
+   :--|:--:|:--|:--|:--
+   code|string|-|-|"0"表示成功
+   msg|string|消息描述|-|-
+   data|object|查询结果|-|-
+     &emsp;list|object|交易列表|-|-
+     &emsp;&emsp;_id|string|交易哈希|-|-
+     &emsp;&emsp;type|string|交易类型|Payment/OfferCreate/OfferCancel<br>TrustSet/RelationSet/RelationDel<br>SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey|-
+     &emsp;&emsp;time|number|交易时间|-|-
+     &emsp;&emsp;past|number|交易距现在过去的秒数|-|-
+     &emsp;&emsp;account|string|交易发起方钱包地址|-|-
+     &emsp;&emsp;succ|string|交易结果是否成功|-|"tesSUCCESS"表示交易成功
+     &emsp;&emsp;dest|string|转账对方地址|-|type="Payment"时存在
+     &emsp;&emsp;amount|[Amount](#Amount-Object)|转账币种和数量|-|type="Payment"时存在
 
 #### 1.2 查询所有交易列表
 
