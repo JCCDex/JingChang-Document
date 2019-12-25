@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD033 -->
 
-# Jingchang Explorer API
+# Jingchang Explorer Server
 
 ## APIs
 
