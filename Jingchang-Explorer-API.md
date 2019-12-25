@@ -5,9 +5,9 @@
 
 ## APIs
 
-### 1. 查询交易列表接口
+### 1. 查询交易列表
 
-#### 1.1 查询最新的6个交易列表接口
+#### 1.1 查询最新的6个交易列表
 
 * route
 
@@ -23,7 +23,7 @@
    --|:--:|:--:|:--:|:--:|:--
    uuid|string|是|-|-|唯一id
 
-#### 1.2 查询所有交易列表接口
+#### 1.2 查询所有交易列表
 
 * route
 
@@ -41,7 +41,7 @@
    p|number|是|-|-|页数，从0开始
    s|number|是|10/20/50/100|20|每页条数
 
-### 2. 查询区块信息列表接口
+### 2. 查询区块信息列表
 
 #### 2.1 查询最新的6个区块
 
@@ -251,7 +251,7 @@
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
    uuid|string|是|-|-|唯一id
-   t|string|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   t|string|是|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
    w|string|是|-|-|钱包地址
 
 ### 9. 查看银关地址发行过tokens
@@ -271,28 +271,7 @@
    uuid|string|是|-|-|唯一id
    w|string|是|-|-|银关地址
 
-### 10. 查询某个钱包每天/月/年的send/receive的交易的某个tokens的笔数和数量
-
-* route
-
-   `/sum/payment_summary/:uuid?w=&d=&dt=&t=&c=`
-
-* method
-
-   `get`
-
-* 请求参数说明
-
-   参数|类型|必填|可选值 |默认值|描述
-   --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   w|string|是|-|-|钱包地址
-   dt|number|是|2: 日<br>3:月<br>4:年|-|日期类型
-   d|string|是|-|-|具体某一天/月/年的日期，若dt=2，则必须形如YYYY-MM-DD；若dt=3，则必须形如YYYY-MM；若dt=4，则必须形如YYYY
-   t|string|否|Send/Receive|-|交易类型
-   c|string|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
-
-### 11. 查询某个token在某个时间段内的转账交易hash信息
+### 10. 查询某个token在某个时间段内的转账交易hash信息
 
 * route
 
@@ -314,7 +293,7 @@
    t|string|是|Payment|-|交易类型
    c|string|是|-|-|token名称
 
-### 12. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
+### 11. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
 
 * route
 
@@ -336,7 +315,7 @@
    t|string|否|Send/Receive|-|交易类型
    c|string|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
 
-### 13. 查询收费平台对应token的收费详情接口
+### 12. 查询收费平台对应token的收费详情接口
 
 * route
 
