@@ -57,6 +57,17 @@
    --|:--:|:--:|:--:|:--:|:--
    uuid|string|是|-|-|唯一id
 
+* 返回结果
+
+   字段|类型|描述|可能值
+   :--:|:--:|:--|:--
+   code|string|"0"表示成功|-
+   msg|string|查询消息描述|-
+   data|object|查询结果|-
+     &emsp;list|object|交易列表|-
+     &emsp;&emsp;_id|string|交易哈希|-
+     &emsp;&emsp;&emsp;&emsp;type|string|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet/RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+
 #### 1.2 查询所有交易列表
 
 * route
@@ -372,7 +383,7 @@
 
 ## 附录
 
-* 交易对说明:
+### 交易对说明
 
 ```json
 {
@@ -412,3 +423,11 @@
     }
 }
 ```
+
+### Amount Object
+
+   字段|描述
+   :--:|:--:
+   currency|币种名称
+   issuer|发行方地址
+   value|数量
