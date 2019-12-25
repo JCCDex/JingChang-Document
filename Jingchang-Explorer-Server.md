@@ -537,8 +537,12 @@
    code|String|-|"0"表示成功|-
    msg|String|消息描述|-|-
    data|Array|查询结果|-|-
+   &emsp;tokens|String|token名称和发行方地址，下划线连接|-|-
    &emsp;totalsupply|Number|总发行量|-|-
    &emsp;holders|Number|对应钱包持有数量|-|-
+   &emsp;circulation|Number|流通量|-|-
+   &emsp;issueDate|Number|token发行日期|-|-
+   &emsp;flag |Number|是否跨链标志|-|0没有跨链，1表示跨链token
 
 ### 8. 查看自己排名
 
