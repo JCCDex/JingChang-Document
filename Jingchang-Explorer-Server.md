@@ -212,6 +212,40 @@
       &emsp;block|Number|所属区块的区块高度|-|-
       &emsp;time|Number|交易发生的时间|-|-
       &emsp;past|Number|交易距现在过去的秒数|-|-
+      &emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
+      &emsp;past|Number|交易距现在过去的秒数|-|-
+      &emsp;account|String|交易发起方钱包地址|-|-
+      &emsp;seq|Number|在交易发起方钱包所有交易中的序号|-|-
+      &emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
+      &emsp;succ|String|交易是否成功|"tesSUCCESS"表示交易成功|-
+
+      * 当type=`Payment`时，`data`包含
+
+        字段|类型|描述|备注|可能值
+        :--|:--:|:--|:--|:--
+        dest|String|转账目的钱包地址|-|-
+        amount|[Amount](#Amount-Object)|转账币种和数量|-|-
+        memos|Array|转账备注|-|-
+        &emsp;Memo|[Memo](#Memo-Object)|备注内容|-|-
+
+      * 当type=`OfferCreate`时，`data`包含
+
+        字段|类型|描述|备注|可能值
+        :--|:--:|:--|:--|:--
+        flag|Number|买/卖|-|1:买；2:卖；0:未知
+        takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
+        takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
+        realGets|[Amount](#Amount-Object)|实际挂单付出币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
+        realPays|[Amount](#Amount-Object)|实际挂单得到币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
+        matchGets|[Amount](#Amount-Object)|实际成交付出币种和数量|若没有实际成交则该字段不存在|-
+        matchPays|[Amount](#Amount-Object)|实际成交得到币种和数量|若没有实际成交则该字段不存在|-
+        matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
+        affectedNodes|Array|挂单立即成交部分（以被动成交钱包的角度）|根据该数组分析出matchGets、matchPays以及matchFlag|-
+        &emsp;account|String|被动成交的钱包地址|-|-
+        &emsp;seq|Number|该被动成交的挂单序号|-|-
+        &emsp;flag|Number|该被动成交的挂单性质|-|1:买；2:卖；0:未知
+        &emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
+        &emsp;final|Object|被动成交后的数量|-|-
 
 ### 4. 根据区块HASH查询其包含的交易列表
 
@@ -511,3 +545,10 @@
 类型|描述|可能值
 |:--:|:--|:--
 String|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet<br>RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+
+### Memo Object
+
+字段|类型|描述|备注
+:--:|:--:|:--|:--
+MemoData|String|备注内容|16进制，[How to parse](https://github.com/swtcca/swtclib/blob/master/packages/swtc-serializer/src/types/STMemo.ts#L80)
+MemoType|String|备注类型|16进制，[How to parse](https://github.com/swtcca/swtclib/blob/master/packages/swtc-serializer/src/types/STMemo.ts#L80)
