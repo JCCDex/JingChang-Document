@@ -257,8 +257,6 @@
 
    2. 如果是区块哈希
 
-      <style> table th:first-of-type { width: 100px; } </style>
-
       字段|类型|描述|备注|可能值
       :--|:--:|:--|:--|:--
       code|String|-|"0"表示成功|-
@@ -267,8 +265,8 @@
       &emsp;list|Array|区块中包含的交易列表|字段说明参见交易哈希查询返回结果|-
       &emsp;count|Number|区块中包含的交易总数|-|-
       &emsp;info|Object|区块信息|-|-
-      &emsp;&emsp;_id|String|区块哈希|-|-
-      &emsp;&emsp;hashType|Number|哈希类型|1:区块哈希；2:交易哈希|1
+      <div style="width:100px">&emsp;&emsp;_id</div> |String|区块哈希|-|-
+      <div style="width:100px">&emsp;&emsp;hashType</div>|Number|哈希类型|1:区块哈希；2:交易哈希|1
       &emsp;&emsp;upperHash|String|所属区块哈希|-|""
       &emsp;&emsp;block|Number|区块的区块高度|-|-
       &emsp;&emsp;time|Number|区块的关闭时间|-|-
