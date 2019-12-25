@@ -72,14 +72,14 @@
      &emsp;&emsp;account|string|交易发起方钱包地址|-|-
      &emsp;&emsp;succ|string|交易结果是否成功|"tesSUCCESS"表示交易成功|-
 
-   1. 当type=`Payment`时，data.list包含
+   1. 当type=`Payment`时，`data.list`包含
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
          dest|string|转账对方地址|-|-
          amount|[Amount](#Amount-Object)|转账币种和数量|-|-
 
-   2. 当type=`OfferCreate`时，data.list包含
+   2. 当type=`OfferCreate`时，`data.list`包含
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
@@ -89,7 +89,7 @@
          realPays|[Amount](#Amount-Object)|除去立即成交之后实际挂单得到币种和数量|-|-
          flag|number|买或卖|-|1:买<br>2:卖<br>0:未知
 
-   3. 当type=`OfferCancel`时，data.list包含
+   3. 当type=`OfferCancel`时，`data.list`包含
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
