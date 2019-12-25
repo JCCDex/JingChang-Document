@@ -55,28 +55,28 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
+   uuid|String|是|-|-|唯一id
 
 * 返回结果
 
    字段|类型|描述|备注|可能值
    :--|:--:|:--|:--|:--
-   code|string|-|-|"0"表示成功
-   msg|string|消息描述|-|-
-   data|object|查询结果|-|-
-     &emsp;list|object|交易列表|-|-
-     &emsp;&emsp;_id|string|交易哈希|-|-
-     &emsp;&emsp;type|string|交易类型|-|Payment<br>OfferCreate<br>OfferCancel<br>TrustSet<br>RelationSet<br>RelationDel<br>SetBlackList<br>RemoveBlackList<br>ManageIssuer<br>SetRegularKey
-     &emsp;&emsp;time|number|交易时间|-|-
-     &emsp;&emsp;past|number|交易距现在过去的秒数|-|-
-     &emsp;&emsp;account|string|交易发起方钱包地址|-|-
-     &emsp;&emsp;succ|string|交易结果是否成功|"tesSUCCESS"表示交易成功|-
+   code|String|-|-|"0"表示成功
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+     &emsp;list|Array|交易列表|-|-
+     &emsp;&emsp;_id|String|交易哈希|-|-
+     &emsp;&emsp;type|String|交易类型|-|Payment<br>OfferCreate<br>OfferCancel<br>TrustSet<br>RelationSet<br>RelationDel<br>SetBlackList<br>RemoveBlackList<br>ManageIssuer<br>SetRegularKey
+     &emsp;&emsp;time|Number|交易时间|-|-
+     &emsp;&emsp;past|Number|交易距现在过去的秒数|-|-
+     &emsp;&emsp;account|String|交易发起方钱包地址|-|-
+     &emsp;&emsp;succ|String|交易结果是否成功|"tesSUCCESS"表示交易成功|-
 
    1. 当type=`Payment`时，`data.list`包含
 
          字段|类型|描述|备注|可能值
          :--|:--:|:--|:--|:--
-         dest|string|转账对方地址|-|-
+         dest|String|转账对方地址|-|-
          amount|[Amount](#Amount-Object)|转账币种和数量|-|-
 
    2. 当type=`OfferCreate`时，`data.list`包含
@@ -87,7 +87,7 @@
          takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
          realGets|[Amount](#Amount-Object)|除去立即成交之后实际挂单付出币种和数量|-|-
          realPays|[Amount](#Amount-Object)|除去立即成交之后实际挂单得到币种和数量|-|-
-         flag|number|买或卖|-|1:买<br>2:卖<br>0:未知
+         flag|Number|买或卖|-|1:买<br>2:卖<br>0:未知
 
    3. 当type=`OfferCancel`时，`data.list`包含
 
@@ -95,7 +95,7 @@
          :--|:--:|:--|:--|:--
          takerGets|[Amount](#Amount-Object)|撤消的该挂单付出币种和数量|可能不存在|-
          takerPays|[Amount](#Amount-Object)|撤消的该挂单得到币种和数量|可能不存在|-
-         flag|number|买或卖|存在的前提是takerGets和takerPays存在|1:买<br>2:卖<br>0:未知
+         flag|Number|买或卖|存在的前提是takerGets和takerPays存在|1:买<br>2:卖<br>0:未知
 
    4. 建议除了上面的3种类型交易，其它交易类型，画面均显示为：未知交易
 
@@ -113,9 +113,9 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   p|number|是|-|-|页数，从0开始
-   s|number|是|10/20/50/100|20|每页条数
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|-|页数，从0开始
+   s|Number|是|10/20/50/100|20|每页条数
 
 * 返回结果
 
@@ -139,7 +139,7 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
+   uuid|String|是|-|-|唯一id
 
 #### 2.2 查询所有区块信息列表
 
@@ -155,9 +155,9 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   p|number|是|-|-|页数，从0开始
-   s|number|是|10/20/50/100|20|每页条数
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|-|页数，从0开始
+   s|Number|是|10/20/50/100|20|每页条数
 
 ### 3. 根据哈希查询交易详细
 
@@ -173,8 +173,8 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   h|string|是|-|-|hash
+   uuid|String|是|-|-|唯一id
+   h|String|是|-|-|hash
 
 ### 4. 根据区块HASH查询其包含的交易列表
 
@@ -190,11 +190,11 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   h|string|是|-|-|交易hash
-   p|number|是|-|-|页数，从0开始
-   s|number|是|10/20/50/100|20|每页条数
-   n|number|是|-|-|区块中一共有多少个交易记录
+   uuid|String|是|-|-|唯一id
+   h|String|是|-|-|交易hash
+   p|Number|是|-|-|页数，从0开始
+   s|Number|是|10/20/50/100|20|每页条数
+   n|Number|是|-|-|区块中一共有多少个交易记录
 
 ### 5. 指定钱包查询
 
@@ -212,8 +212,8 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   w|string|是|-|-|钱包地址
+   uuid|String|是|-|-|唯一id
+   w|String|是|-|-|钱包地址
 
 ### 5.2 指定钱包的当前委托单查询
 
@@ -229,12 +229,12 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   p|number|是|-|-|页数，从0开始
-   s|number|否|10/20/50/100|20|每页条数
-   w|string|是|-|-|钱包地址
-   c|string|否|-|-|交易对（可以不传值，不传值表示查询全部类型交易对的委托单。形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录）
-   bs|number|否|0:买或卖<br>1:买<br>2:卖|0|委托性质,如果传值必须与c参数一起使用
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+   w|String|是|-|-|钱包地址
+   c|String|否|-|-|交易对（可以不传值，不传值表示查询全部类型交易对的委托单。形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录）
+   bs|Number|否|0:买或卖<br>1:买<br>2:卖|0|委托性质,如果传值必须与c参数一起使用
 
 #### 5.3 指定钱包的历史交易查询
 
@@ -250,15 +250,15 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   p|number|是|-|-|页数，从0开始
-   s|number|是|10/20/50/100|20|每页条数
-   b|string|否|-|-|开始日期，形如YYYY-MM-DD
-   e|string|否|-|-|结束日期，形如YYYY-MM-DD
-   t|string|否|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|交易类型（多个类型以逗号分隔，可以不传值，不传值表示查询所有类型）
-   c|string|否|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
-   bs|number|否|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
-   w|string|是|-|-|钱包地址
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|-|页数，从0开始
+   s|Number|是|10/20/50/100|20|每页条数
+   b|String|否|-|-|开始日期，形如YYYY-MM-DD
+   e|String|否|-|-|结束日期，形如YYYY-MM-DD
+   t|String|否|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|交易类型（多个类型以逗号分隔，可以不传值，不传值表示查询所有类型）
+   c|String|否|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
+   bs|Number|否|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
+   w|String|是|-|-|钱包地址
 
 #### 5.4 指定钱包收益分析
 
@@ -274,9 +274,9 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   t|number|是|1:日<br>2:周<br>3:月<br>4:年|-|类型
-   w|string|是|-|-|钱包地址
+   uuid|String|是|-|-|唯一id
+   t|Number|是|1:日<br>2:周<br>3:月<br>4:年|-|类型
+   w|String|是|-|-|钱包地址
 
 ### 6. 持仓排行
 
@@ -294,8 +294,8 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   t|string|否|-|-|token名称
+   uuid|String|是|-|-|唯一id
+   t|String|否|-|-|token名称
 
 ### 7. 获取某种token的100排名
 
@@ -311,12 +311,12 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   t|string|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
-   p|number|是|-|-|页数，从0开始
-   s|number|否|10/20/50/100|20|每页条数
-   b|string|否|-|-|开始日期，形如YYYY-MM-DD
-   e|string|否|-|-|结束日期，形如YYYY-MM-DD
+   uuid|String|是|-|-|唯一id
+   t|String|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+   b|String|否|-|-|开始日期，形如YYYY-MM-DD
+   e|String|否|-|-|结束日期，形如YYYY-MM-DD
 
 ### 8. 查看自己排名
 
@@ -332,9 +332,9 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   t|string|是|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
-   w|string|是|-|-|钱包地址
+   uuid|String|是|-|-|唯一id
+   t|String|是|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   w|String|是|-|-|钱包地址
 
 ### 9. 查看银关地址发行过tokens
 
@@ -350,8 +350,8 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   w|string|是|-|-|银关地址
+   uuid|String|是|-|-|唯一id
+   w|String|是|-|-|银关地址
 
 ### 10. 查询某个token在某个时间段内的转账交易hash信息
 
@@ -367,13 +367,13 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   p|number|是|-|-|页数，从0开始
-   s|number|否|10/20/50/100|20|每页条数
-   b|string|否|-|-|开始日期，形如YYYY-MM-DD
-   e|string|否|-|-|结束日期，形如YYYY-MM-DD
-   t|string|是|Payment|-|交易类型
-   c|string|是|-|-|token名称
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+   b|String|否|-|-|开始日期，形如YYYY-MM-DD
+   e|String|否|-|-|结束日期，形如YYYY-MM-DD
+   t|String|是|Payment|-|交易类型
+   c|String|是|-|-|token名称
 
 ### 11. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
 
@@ -389,13 +389,13 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   w|string|是|-|-|钱包地址
-   dt|number|是|2: 日<br>3:月<br>4:年|-|日期类型
-   b|string|是|-|-|具体某一天/月/年的日期，若dt=2，则必须形如YYYY-MM-DD；若dt=3，则必须形如YYYY-MM；若dt=4，则必须形如YYYY
-   e|string|否|-|-|格式要求同b参数。若指定e的值，则累加统计b～e时间段范围内相同token的值，另外e的值必须大于b的值。对于dt=2或3时，b和e之间天数之差不能超过一年的时间；dt=4时，b和e之间的间隔没有限制
-   t|string|否|Send/Receive|-|交易类型
-   c|string|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   uuid|String|是|-|-|唯一id
+   w|String|是|-|-|钱包地址
+   dt|Number|是|2: 日<br>3:月<br>4:年|-|日期类型
+   b|String|是|-|-|具体某一天/月/年的日期，若dt=2，则必须形如YYYY-MM-DD；若dt=3，则必须形如YYYY-MM；若dt=4，则必须形如YYYY
+   e|String|否|-|-|格式要求同b参数。若指定e的值，则累加统计b～e时间段范围内相同token的值，另外e的值必须大于b的值。对于dt=2或3时，b和e之间天数之差不能超过一年的时间；dt=4时，b和e之间的间隔没有限制
+   t|String|否|Send/Receive|-|交易类型
+   c|String|否|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
 
 ### 12. 查询收费平台对应token的收费详情接口
 
@@ -411,12 +411,12 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   uuid|string|是|-|-|唯一id
-   p|number|是|-|-|页数，从0开始
-   s|number|否|10/20/50/100|20|每页条数
-   w|string|是|-|-|平台地址
-   k|number|否|1:gas费设置<br>2:手续费设置|2|收费类型
-   t|string|否|-|-|token名称（SWT无需发行方，值为SWTC，其他token需要带发行方，币种大写, 如t=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+   w|String|是|-|-|平台地址
+   k|Number|否|1:gas费设置<br>2:手续费设置|2|收费类型
+   t|String|否|-|-|token名称（SWT无需发行方，值为SWTC，其他token需要带发行方，币种大写, 如t=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
 
 ## 附录
 
