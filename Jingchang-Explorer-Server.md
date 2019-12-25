@@ -66,7 +66,7 @@
    data|Object|查询结果|-|-
      &emsp;list|Array|交易列表|-|-
      &emsp;&emsp;_id|String|交易哈希|-|-
-     &emsp;&emsp;type|String|交易类型|-|Payment<br>OfferCreate<br>OfferCancel<br>TrustSet<br>RelationSet<br>RelationDel<br>SetBlackList<br>RemoveBlackList<br>ManageIssuer<br>SetRegularKey
+     &emsp;&emsp;type|String|交易类型|-|[Transaction Options](#Transaction-Options)
      &emsp;&emsp;time|Number|交易时间|-|-
      &emsp;&emsp;past|Number|交易距现在过去的秒数|-|-
      &emsp;&emsp;account|String|交易发起方钱包地址|-|-
@@ -196,6 +196,22 @@
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|是|-|-|唯一id
    h|String|是|-|-|hash
+
+* 返回结果
+
+   1. 如果是交易哈希
+
+      字段|类型|描述|备注|可能值
+      :--|:--:|:--|:--|:--
+      code|String|-|"0"表示成功|-
+      msg|String|消息描述|-|-
+      data|Object|查询结果|-|-
+      &emsp;_id|String|交易哈希|-|-
+      &emsp;hashType|Number|哈希类型|1:区块哈希<br>2:交易哈希|2
+      &emsp;upperHash|String|所属区块哈希|-|-
+      &emsp;block|Number|所属区块的区块高度|-|-
+      &emsp;time|Number|交易发生的时间|-|-
+      &emsp;past|Number|交易距现在过去的秒数|-|-
 
 ### 4. 根据区块HASH查询其包含的交易列表
 
@@ -489,3 +505,9 @@
    currency|String|币种名称
    issuer|String|发行方地址
    value|String|数量
+
+### Transaction Options
+
+类型|描述|可能值
+|:--:|:--|:--
+String|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet/RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
