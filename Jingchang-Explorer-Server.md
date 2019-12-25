@@ -3,7 +3,7 @@
 <!-- markdownlint-disable MD046 -->
 <!-- markdownlint-disable MD029 -->
 
-# Jingchang Explorer Server
+# 井畅浏览器服务
 
 ## 现有井通浏览器查询服务的缺点
 
