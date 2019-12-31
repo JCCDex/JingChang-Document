@@ -97,9 +97,7 @@
          :--|:--:|:--|:--|:--
          takerGets|[Amount](#Amount-Object)|撤消的该挂单付出币种和数量|可能不存在|-
          takerPays|[Amount](#Amount-Object)|撤消的该挂单得到币种和数量|可能不存在|-
-         flag|Number|买或卖|存在的前提是takerGets和takerPays存在|[Flag Type](#Flag-Type)
-
-   4. 建议除了上面的3种类型交易，其它交易类型，画面均显示为：未知交易
+         flag|Number|买或卖|存在的前提是`takerGets`和`takerPays`存在|[Flag Type](#Flag-Type)
 
 #### 1.2 查询所有交易列表
 
