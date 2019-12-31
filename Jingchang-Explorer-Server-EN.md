@@ -332,7 +332,7 @@
    &emsp;count|Number|number of order|-|-
    &emsp;list|Array|-|-|-
    &emsp;&emsp;time|Number|time of order|-|-
-   &emsp;&emsp;past|Number|number of seconds since create|-|-
+   &emsp;&emsp;past|Number|number of seconds since the transaction passed|-|-
    &emsp;&emsp;hash|String|hash|-|-
    &emsp;&emsp;block|Number|block height|-|-
    &emsp;&emsp;flag|Number|buy/sell|-|[Flag Type](#Flag-Type)
@@ -359,8 +359,8 @@
    b|String|false|-|-|start date，YYYY-MM-DD
    e|String|false|-|-|end date，YYYY-MM-DD
    t|String|false|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|transaction type (multiple types are separated by commas, and no value can be passed which means that all types are queried)
-   c|String|false|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
-   bs|Number|false|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
+   c|String|false|-|-|transaction pair or token（You can not pass a value, which means that the currency is not used as the query condition. When `t` is `OfferCreate`, `OfferAffect` or `OfferCancel`, the value passed must be in the form of: `SWTC-CNY` or `swtc-cny`, and must be in the form of the original sequence base-counter of the transaction pair. For example, it cannot be `CNY-SWTC`, otherwise the sales relationship may mess, in addition, the transaction pair can only specify base or counter, such as `swtc-` or `-cny`. For all transaction pairs, please refer to the [appendix](#appendix); when t is `Send` or `Receive`, the value must be less than 8 in length, such as `JJCC`）
+   bs|Number|false|0:buy and sell<br>1:buy<br>2:sell|-|Only effective when `t` is `OfferCreate`, `OfferAffect` or `OfferCancel`
    w|String|true|-|-|wallet address
 
 * response
@@ -370,59 +370,59 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;list|Array|区块中包含的交易列表|-|-
-   &emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
-   &emsp;time|Number|交易发生的时间|-|-
-   &emsp;past|Number|交易距现在过去的秒数|-|-
-   &emsp;hash|String|交易哈希|-|-
-   &emsp;block|Number|区块高度|-|-
-   &emsp;fee|String|交易gas费用|OfferAffect和Receive时，fee=""|-
-   &emsp;success|String|交易是否成功|"tesSUCCESS"表示成功|-
-   &emsp;seq|Number|交易序号|对于OfferAffect和Receive，该字符无意义|-
+   &emsp;list|Array|-|-|-
+   &emsp;type|String|transaction type|-|[Transaction Type](#Transaction-Type)
+   &emsp;time|Number|occurred time|-|-
+   &emsp;past|Number|number of seconds since the transaction passed|-|-
+   &emsp;hash|String|transaction hash|-|-
+   &emsp;block|Number|block height|-|-
+   &emsp;fee|String|transaction gas|when type is `OfferAffect` or `Receive`，fee is ""|-
+   &emsp;success|String|if success|"tesSUCCESS" means success|-
+   &emsp;seq|Number|transaction sequence|for type is `OfferAffect` or `Receive`, is meaningless|-
 
-   1. 当type=`Send`或`Receive`时，`data.list`包含
-
-         Key|Type|Description|Remark|Possible
-         :--|:--:|:--|:--|:--
-         account|String|对方钱包地址|-|-
-         amount|[Amount](#Amount-Object)|支付或收到的币种和数量|-|-
-
-   2. 当type=`OfferCreate`时，`data.list`包含
+   1. when type is `Send` or `Receive` ，`data.list` includes
 
          Key|Type|Description|Remark|Possible
          :--|:--:|:--|:--|:--
-         flag|Number|买/卖|-|[Flag Type](#Flag-Type)
-         matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
-         takerGets|[Amount](#Amount-Object)|创建挂单时付出的币种和数量|-|-
-         takerPays|[Amount](#Amount-Object)|创建挂单时得到的币种和数量|-|-
-         takerGetsFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的付出币种和数量|如果挂单全部成交，则没有该字段|-
-         takerPaysFact|[Amount](#Amount-Object)|立即成交剩余的实际挂单部分的得到币种和数量|如果挂单全部成交，则没有该字段|-
-         takerGetsMatch|[Amount](#Amount-Object)|立即成交部分的付出币种和数量|如果没有立即成交，则没有该字段|-
-         takerPaysMatch|[Amount](#Amount-Object)|立即成交部分的得到币种和数量|如果没有立即成交，则没有该字段|-
+         account|String|counterparty wallet address|-|-
+         amount|[Amount](#Amount-Object)|sent or received token and amount|-|-
 
-   3. 当type=`OfferAffect`时，`data.list`包含
+   2. when type is `OfferCreate`，`data.list` includes
 
-        Key|Type|Description|Remark|Possible
-        :--|:--:|:--|:--|:--
-        flag|Number|买/卖|-|[Flag Type](#Flag-Type)
-        matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
-        takerGets|[Amount](#Amount-Object)|被动成交前挂单的付出币种和数量|-|-
-        takerPays|[Amount](#Amount-Object)|被动成交前挂单的得到币种和数量|-|-
-        takerGetsFact|[Amount](#Amount-Object)|被动成交剩余部分的付出币种和数量|如果全部被动成交，则没有该字段|-
-        takerPaysFact|[Amount](#Amount-Object)|被动成交剩余部分的得到币种和数量|如果全部被动成交，则没有该字段|-
-        takerGetsMatch|[Amount](#Amount-Object)|被动成交部分的付出币种和数量|-|-
-        takerPaysMatch|[Amount](#Amount-Object)|被动成交部分的得到币种和数量|-|-
+         Key|Type|Description|Remark|Possible
+         :--|:--:|:--|:--|:--
+         flag|Number|buy/sell|-|[Flag Type](#Flag-Type)
+         matchFlag|Number|match flag|is not exist if there is no match, indicates a multi-party match, such as 3 for a three-party match|-
+         takerGets|[Amount](#Amount-Object)|token and amount paid when creating a order|-|-
+         takerPays|[Amount](#Amount-Object)|token and amount got when creating a order|-|-
+         takerGetsFact|[Amount](#Amount-Object)|token and amount actual paid (deducting the immediate transaction)|is not exist if the transaction is filled immediately|-
+         takerPaysFact|[Amount](#Amount-Object)|token and amount actual got (deducting the immediate transaction)|is not exist if the transaction is filled immediately|-
+         takerGetsMatch|[Amount](#Amount-Object)|token and amount paid immediately|is not exist if there is no immediate deal|-
+         takerPaysMatch|[Amount](#Amount-Object)|token and amount got immediately|is not exist if there is no immediate deal|-
 
-   4. 当type=`OfferCancel`时，`data.list`包含
+   3. when type=`OfferAffect`，`data.list` includes
 
         Key|Type|Description|Remark|Possible
         :--|:--:|:--|:--|:--
-        offerSeq|Number|被撤消挂单的序号|-|-
-        flag|Number|被撤消挂单的交易性质|-|[Flag Type](#Flag-Type)
-        takerGets|[Amount](#Amount-Object)|被撤消挂单的付出币种和数量|账本中经常出现一个挂单被多次撤消的情况，所以该字段可能没有|-
-        takerPays|[Amount](#Amount-Object)|被撤消挂单的得到币种和数量|账本中经常出现一个挂单被多次撤消的情况，所以该字段可能没有|-
+        flag|Number|buy/sell|-|[Flag Type](#Flag-Type)
+        matchFlag|Number|match flag|is not exist if there is no match, indicates a multi-party match, such as 3 for a three-party match|-
+        takerGets|[Amount](#Amount-Object)|token and amount paid of order before passive transaction|-|-
+        takerPays|[Amount](#Amount-Object)|token and amount got of order before passive transaction|-|-
+        takerGetsFact|[Amount](#Amount-Object)|token and amount paid for the remainder of the passive transaction|is not exist if all transactions are passive|-
+        takerPaysFact|[Amount](#Amount-Object)|token and amount got for the remainder of the passive transaction|is not exist if all transactions are passive|-
+        takerGetsMatch|[Amount](#Amount-Object)|token and amount paid for passive transaction|-|-
+        takerPaysMatch|[Amount](#Amount-Object)|token and amount got for passive transaction|-|-
 
-#### 5.4 指定钱包收益分析
+   4. when type=`OfferCancel`，`data.list` includes
+
+        Key|Type|Description|Remark|Possible
+        :--|:--:|:--|:--|:--
+        offerSeq|Number|sequence of canceled order|-|-
+        flag|Number|type of canceled order|-|[Flag Type](#Flag-Type)
+        takerGets|[Amount](#Amount-Object)|token and amount paid of canceled order|there is often a case where a pending order is cancelled in the ledger, so this field may not have|-
+        takerPays|[Amount](#Amount-Object)|token and amount got of canceled order|there is often a case where a pending order is cancelled in the ledger, so this field may not have|-
+
+#### 5.4 analysis of specified wallet
 
 * route
 
@@ -437,16 +437,12 @@
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
-   t|Number|true|1:日<br>2:周<br>3:月<br>4:年|-|Type
+   t|Number|true|1:day<br>2:week<br>3:month<br>4:year|-|Type
    w|String|true|-|-|wallet address
 
-### 6. 持仓排行
+### 6. Position ranking
 
-* 设计说明：后台设计一个数据库 skywell_sum目前存放两个表
-   1. tokens: 存放所有tokens列表
-   2. tokensSort: 存放所有tokens的前100数据，不够100显示所有，每天生成 一次数据，目前160多种tokens，每天增长7000多条，数据量不大，放在一个表
-
-#### 6.1 获取所有tokens列表
+#### 6.1 Get list of all tokens
 
 * route
 
@@ -461,7 +457,7 @@
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
-   t|String|false|-|-|token名称
+   t|String|false|-|-|token name
 
 * response
 
@@ -470,10 +466,10 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;(key为token首字母或`num`)|Array|-|-|-
-   &emsp;&emsp;-|String|token名称和发行方地址，下划线连接|-|-
+   &emsp;(key is first letter of token or `num`)|Array|-|-|-
+   &emsp;&emsp;-|String|token name and issuer address, format: `name`_`issuer`|-|-
 
-### 7. 获取某种token的100排名
+### 7. Get 100 ranks by token
 
 * route
 
@@ -488,11 +484,11 @@
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
-   t|String|false|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   t|String|false|-|-|token name（SWT does not require an issuer. The value is `SWTC_`. Other tokens need to be issued with the issuer in uppercase, like c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
    p|Number|true|-|-|number of pages, starting from 0
    s|Number|false|10/20/50/100|20|size per page
-   b|String|false|-|-|开始日期，形如YYYY-MM-DD
-   e|String|false|-|-|结束日期，形如YYYY-MM-DD
+   b|String|false|-|-|start date, YYYY-MM-DD
+   e|String|false|-|-|end date，YYYY-MM-DD
 
 * response
 
@@ -501,14 +497,14 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Array|-|-|-
-   &emsp;tokens|String|token名称和发行方地址，下划线连接|-|-
-   &emsp;totalsupply|Number|总发行量|-|-
-   &emsp;holders|Number|对应钱包持有数量|-|-
-   &emsp;circulation|Number|流通量|-|-
-   &emsp;issueDate|Number|token发行日期|-|-
-   &emsp;flag |Number|是否跨链标志|-|0没有跨链，1表示跨链token
+   &emsp;tokens|String|token name and issuer address, format: `name`_`issuer`|-|-
+   &emsp;totalsupply|Number|total circulation|-|-
+   &emsp;holders|Number|wallet holdings|-|-
+   &emsp;circulation|Number|liquidity|-|-
+   &emsp;issueDate|Number|token issue date|-|-
+   &emsp;flag |Number|whether cross-chain flag|-|0: no，1: yes
 
-### 8. 查看自己排名
+### 8. View your ranking
 
 * route
 
@@ -523,7 +519,7 @@
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
-   t|String|true|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   t|String|true|-|-|token name（SWT does not require an issuer. The value is `SWTC_`. Other tokens need to be issued with the issuer in uppercase, like c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
    w|String|true|-|-|wallet address
 
 * response
@@ -532,9 +528,9 @@
    :--|:--:|:--|:--|:--
    code|String|-|"0" means success|-
    msg|String|message description|-|-
-   data|Number|个人排名| 如果没有持有，则data返回空|-
+   data|Number|personal ranking| is empty if not hold|-
 
-### 9. 查看银关地址发行过tokens
+### 9. Query the tokens issued by the issuer address
 
 * route
 
@@ -549,7 +545,7 @@
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
-   w|String|true|-|-|银关地址
+   w|String|true|-|-|issuer address
 
 * response
 
@@ -558,11 +554,11 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;(key为银关地址)|Array|-|-|-
-   &emsp;&emsp;currency|String|token名称|-|-
-   &emsp;&emsp;issuer|String|发行方地址|-|-
+   &emsp;(key is issuer address)|Array|-|-|-
+   &emsp;&emsp;currency|String|token name|-|-
+   &emsp;&emsp;issuer|String|issuer address|-|-
 
-### 10. 查询某个token在某个时间段内的转账交易hash信息
+### 10. Query the transfer hash information of a certain transaction within a certain period of time
 
 * route
 
@@ -579,10 +575,10 @@
    uuid|String|true|-|-|unique id
    p|Number|true|-|-|number of pages, starting from 0
    s|Number|false|10/20/50/100|20|size per page
-   b|String|false|-|-|开始日期，形如YYYY-MM-DD
-   e|String|false|-|-|结束日期，形如YYYY-MM-DD
-   t|String|true|Payment|-|交易类型
-   c|String|true|-|-|token名称
+   b|String|false|-|-|start date，YYYY-MM-DD
+   e|String|false|-|-|end date，YYYY-MM-DD
+   t|String|true|Payment|-|transaction type
+   c|String|true|-|-|token name
 
 * response
 
@@ -591,21 +587,21 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;count|Number|查询结果的个数|-|-
+   &emsp;count|Number|number of query results|-|-
    &emsp;list|Array|-|-|-
-   &emsp;&emsp;_id|String|交易哈希|-|-
-   &emsp;&emsp;hashType|Number|哈希类型|1:区块哈希<br>2:交易哈希|2
-   &emsp;&emsp;time|Number|时间戳|与当前时间换算关系new Date((time+946684800)*1000)|-
-   &emsp;&emsp;index|Number|区块内的交易编号|-|-
-   &emsp;&emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
-   &emsp;&emsp;account|String|交易发起方钱包地址|-|-
-   &emsp;&emsp;seq|Number|交易序列号|-|-
-   &emsp;&emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
-   &emsp;&emsp;succ|String|交易是否成功|"tesSUCCESS" means success|-
-   &emsp;&emsp;dest|String|对方钱包地址|-|-
-   &emsp;&emsp;amount|[Amount](#Amount-Object)|支付币种和数量|-|-
+   &emsp;&emsp;_id|String|transaction|-|-
+   &emsp;&emsp;hashType|Number|hash type|1:block hash<br>2:transaction hash|2
+   &emsp;&emsp;time|Number|timestamp|unit: second, new Date((time+946684800)*1000)|-
+   &emsp;&emsp;index|Number|transaction number within the block|-|-
+   &emsp;&emsp;type|String|transaction type|-|[Transaction Type](#Transaction-Type)
+   &emsp;&emsp;account|String|transaction initiator wallet address|-|-
+   &emsp;&emsp;seq|Number|sequence|-|-
+   &emsp;&emsp;fee|Number|transaction gas|unit is `SWTC`, decimal, minimum 0.00001|-
+   &emsp;&emsp;succ|String|whether success|"tesSUCCESS" means success|-
+   &emsp;&emsp;dest|String|counterparty wallet address|-|-
+   &emsp;&emsp;amount|[Amount](#Amount-Object)|sent token and amount|-|-
 
-### 11. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
+### 11. Query the daily/month/ year payment or receipt of a certain wallet for a certain wallet
 
 * route
 
@@ -621,11 +617,11 @@
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
    w|String|true|-|-|wallet address
-   dt|Number|true|2: 日<br>3:月<br>4:年|-|日期类型
-   b|String|true|-|-|具体某一天/月/年的日期，若dt=2，则必须形如YYYY-MM-DD；若dt=3，则必须形如YYYY-MM；若dt=4，则必须形如YYYY
-   e|String|false|-|-|格式要求同bParameter。若指定e的值，则累加统计b～e时间段范围内相同token的值，另外e的值必须大于b的值。对于dt=2或3时，b和e之间天数之差不能超过一年的时间；dt=4时，b和e之间的间隔没有限制
-   t|String|false|Send/Receive|-|交易类型
-   c|String|false|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   dt|Number|true|2: day<br>3:month<br>4:year|-|date type
+   b|String|true|-|-|for a specific day/month/year date, if dt = 2, it must be like YYYY-MM-DD; if dt = 3, it must be like YYYY-MM; if dt = 4, it must be like YYYY
+   e|String|false|-|-|like `b` parameter。If the value of `e` is specified, the value of the same token in the time range of `b` to `e` is accumulated, and the value of `e` must be greater than the value of `b`. when `dt` is 2 or 3, the difference in days between `b` and `e` cannot exceed one year; when `dt` is 4, there is no limit on the interval between `b` and `e`
+   t|String|false|Send/Receive|-|transaction type
+   c|String|false|-|-|token name（SWT does not require an issuer. The value is `SWTC_`. Other tokens need to be issued with the issuer in uppercase, like c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
 
 * response
 
@@ -635,14 +631,14 @@
    msg|String|message description|-|-
    data|Array|-|-|-
    &emsp;wallet|String|wallet address|-|-
-   &emsp;token|String|token名称和发行方地址，下划线连接|-|-
-   &emsp;type|String|支付/收到|-|Send:支付；Receive:收到
-   &emsp;num|Number|总笔数|-|-
-   &emsp;amount|Number|总数量|-|-
+   &emsp;token|String|token name and issuer address, format: `name`_`issuer`|-|-
+   &emsp;type|String|send/receive|-|Send；Receive
+   &emsp;num|Number|total count|-|-
+   &emsp;amount|Number|total amount|-|-
 
-   1. 如果某个钱包有转出或收到某个token，这时若没有指定type类型，则会返回2条记录信息如果某个钱包有转出多个token，若没有指定token名称，则会返回多条记录。
+   1. If a wallet transfers or receives a token, if no type is specified, then 2 records will be returned. If a wallet has transferred multiple tokens, if no token name is specified, multiple returns records.
 
-### 12. 查询收费平台对应token的收费详情接口
+### 12. Query the charging details
 
 * route
 
@@ -659,9 +655,9 @@
    uuid|String|true|-|-|unique id
    p|Number|true|-|-|number of pages, starting from 0
    s|Number|false|10/20/50/100|20|size per page
-   w|String|true|-|-|平台地址
-   k|Number|false|1:gas费设置<br>2:手续费设置|2|收费类型
-   t|String|false|-|-|token名称（SWT无需发行方，值为SWTC，其他token需要带发行方，币种大写, 如t=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
+   w|String|true|-|-|platform address
+   k|Number|false|1:gas<br>2:charging|2|charge type
+   t|String|false|-|-|token name（SWT does not require an issuer. The value is `SWTC_`. Other tokens need to be issued with the issuer in uppercase, like c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
 
 * response
 
@@ -670,13 +666,13 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;data[0]|Array|各币种收费列表|-|-
-   &emsp;&emsp;platform|String|平台方钱包地址|-|-
-   &emsp;&emsp;token|String|token名称和发行方地址，下划线连接|-|-
-   &emsp;&emsp;den|Number|费率分母|-|-
-   &emsp;&emsp;feeAccount|String|收费钱包地址|-|-
-   &emsp;&emsp;num|Number|费率分子|-|-
-   &emsp;&emsp;time|Number|设置时间|-|-
+   &emsp;data[0]|Array|-|-|-
+   &emsp;&emsp;platform|String|platform address|-|-
+   &emsp;&emsp;token|String|token name and issuer address, format: `name`_`issuer`|-|-
+   &emsp;&emsp;den|Number|rate denominator|-|-
+   &emsp;&emsp;feeAccount|String|received wallet address|-|-
+   &emsp;&emsp;num|Number|rate numerator|-|-
+   &emsp;&emsp;time|Number|sett time|-|-
    &emsp;data[1]|Number|count|-|-
 
 ## Appendix
