@@ -358,7 +358,7 @@
    s|Number|true|10/20/50/100|20|size per page
    b|String|false|-|-|start date，YYYY-MM-DD
    e|String|false|-|-|end date，YYYY-MM-DD
-   t|String|false|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|transaction type (multiple types are separated by commas, and no value can be passed which means that all types are queried)
+   t|String|false|OfferCreate<br>OfferAffect<br>OfferCancel<br>Send<br>Receive|-|transaction type (multiple types are separated by commas, and no value can be passed which means that all types are queried)
    c|String|false|-|-|transaction pair or token（You can not pass a value, which means that the currency is not used as the query condition. When `t` is `OfferCreate`, `OfferAffect` or `OfferCancel`, the value passed must be in the form of: `SWTC-CNY` or `swtc-cny`, and must be in the form of the original sequence base-counter of the transaction pair. For example, it cannot be `CNY-SWTC`, otherwise the sales relationship may mess, in addition, the transaction pair can only specify base or counter, such as `swtc-` or `-cny`. For all transaction pairs, please refer to the [appendix](#appendix); when t is `Send` or `Receive`, the value must be less than 8 in length, such as `JJCC`）
    bs|Number|false|0:buy and sell<br>1:buy<br>2:sell|-|Only effective when `t` is `OfferCreate`, `OfferAffect` or `OfferCancel`
    w|String|true|-|-|wallet address
