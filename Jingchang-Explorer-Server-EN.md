@@ -40,34 +40,32 @@
      &emsp;&emsp;account|String|transaction initiator wallet address|-|-
      &emsp;&emsp;succ|String|whether the transaction result is successful|"tesSUCCESS" means success|-
 
-   1. 当type=`Payment`时，`data.list`包含
+   1. when type=`Payment`，`data.list` includes
 
          Key|Type|Description|Remark|Possible
          :--|:--:|:--|:--|:--
-         dest|String|转账对方地址|-|-
-         amount|[Amount](#Amount-Object)|转账币种和数量|-|-
+         dest|String|transfer counterparty address|-|-
+         amount|[Amount](#Amount-Object)|token and amount|-|-
 
-   2. 当type=`OfferCreate`时，`data.list`包含
-
-         Key|Type|Description|Remark|Possible
-         :--|:--:|:--|:--|:--
-         takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
-         takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
-         realGets|[Amount](#Amount-Object)|除去立即成交之后实际挂单付出币种和数量|-|-
-         realPays|[Amount](#Amount-Object)|除去立即成交之后实际挂单得到币种和数量|-|-
-         flag|Number|买或卖|-|[Flag Type](#Flag-Type)
-
-   3. 当type=`OfferCancel`时，`data.list`包含
+   2. when type=`OfferCreate`，`data.list` includes
 
          Key|Type|Description|Remark|Possible
          :--|:--:|:--|:--|:--
-         takerGets|[Amount](#Amount-Object)|撤消的该挂单付出币种和数量|可能不存在|-
-         takerPays|[Amount](#Amount-Object)|撤消的该挂单得到币种和数量|可能不存在|-
-         flag|Number|买或卖|存在的前提是takerGets和takerPays存在|[Flag Type](#Flag-Type)
+         takerGets|[Amount](#Amount-Object)|token and amount of paying|-|-
+         takerPays|[Amount](#Amount-Object)|token and amount of getting|-|-
+         realGets|[Amount](#Amount-Object)|actual paid token and amount(excluding immediate deal)|-|-
+         realPays|[Amount](#Amount-Object)|actual got token and amount(excluding immediate deal)|-|-
+         flag|Number|buy or sell|-|[Flag Type](#Flag-Type)
 
-   4. 建议除了上面的3种类型交易，其它交易类型，画面均显示为：未知交易
+   3. when type=`OfferCancel`，`data.list` includes
 
-#### 1.2 查询所有交易列表
+         Key|Type|Description|Remark|Possible
+         :--|:--:|:--|:--|:--
+         takerGets|[Amount](#Amount-Object)|paid token and amount of canceled transaction|may not exist|-
+         takerPays|[Amount](#Amount-Object)|got token and amount of canceled transaction|may not exist|-
+         flag|Number|buy or sell|Only be exist when `takerGets` and `takerPays` is exist|[Flag Type](#Flag-Type)
+
+#### 1.2 Query all transaction list
 
 * route
 
@@ -87,13 +85,13 @@
 
 * response
 
-  * 同[1.1](#11-查询最新的6个交易列表)
+  * see [1.1](#11-Query-the-latest-6-transaction-list)
 
-  * 最多只能查询100万条交易记录（按照每个区块100条交易计算，大概一天的交易数据）
+  * Can only query up to 1 million transaction records (calculated based on 100 transactions per block, about one day of transaction data)
 
-### 2. 查询区块信息列表
+### 2. Query block list
 
-#### 2.1 查询最新的6个区块
+#### 2.1 Query the latest 6 blocks
 
 * route
 
@@ -116,15 +114,15 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-     &emsp;list|Array|交易列表|-|-
-     &emsp;&emsp;_id|Number|区块高度|-|-
-     &emsp;&emsp;time|Number|区块关闭时间|-|-
-     &emsp;&emsp;past|Number|该区块距现在过去的秒数|-|-
-     &emsp;&emsp;transNum|Number|区块内交易个数|-|-
-     &emsp;&emsp;hash|String|区块哈希|-|-
-     &emsp;&emsp;parentHash|String|上一区块的哈希|-|-
+     &emsp;list|Array|-|-|-
+     &emsp;&emsp;_id|Number|block height|-|-
+     &emsp;&emsp;time|Number|block closed time|-|-
+     &emsp;&emsp;past|Number|the number of seconds the block has elapsed from now|-|-
+     &emsp;&emsp;transNum|Number|number of transactions in the block|-|-
+     &emsp;&emsp;hash|String|block hash|-|-
+     &emsp;&emsp;parentHash|String|hash of the previous block|-|-
 
-#### 2.2 查询所有区块信息列表
+#### 2.2 Query all blocks
 
 * route
 
@@ -144,11 +142,11 @@
 
 * response
 
-  * 同[2.1](#21-查询最新的6个区块)
+  * see [2.1](#21-Query-the-latest-6-blocks)
 
-  * 最多只能查询300万条区块记录（大概接近一年的区块数据）
+  * Can only query up to 3 million block records (about one year of block data)
 
-### 3. 根据哈希查询交易详细
+### 3. Query transaction details by hash
 
 * route
 
@@ -167,82 +165,82 @@
 
 * response
 
-   1. 如果是交易哈希
+   1. If is transaction hash
 
       Key|Type|Description|Remark|Possible
       :--|:--:|:--|:--|:--
       code|String|-|"0" means success|-
       msg|String|message description|-|-
       data|Object|-|-|-
-      &emsp;_id|String|交易哈希|-|-
-      &emsp;hashType|Number|哈希类型|1:区块哈希<br>2:交易哈希|2
-      &emsp;upperHash|String|所属区块哈希|-|-
-      &emsp;block|Number|所属区块的区块高度|-|-
-      &emsp;time|Number|交易发生的时间|-|-
-      &emsp;past|Number|交易距现在过去的秒数|-|-
-      &emsp;type|String|交易类型|-|[Transaction Type](#Transaction-Type)
-      &emsp;account|String|交易发起方钱包地址|-|-
-      &emsp;seq|Number|在交易发起方钱包所有交易中的序号|-|-
-      &emsp;fee|Number|交易gas费用|单位是SWTC，小数，最小0.00001|-
-      &emsp;succ|String|交易是否成功|"tesSUCCESS" means success|-
+      &emsp;_id|String|transaction hash|-|-
+      &emsp;hashType|Number|hash type|1:block hash<br>2:transaction hash|2
+      &emsp;upperHash|String|block hash|-|-
+      &emsp;block|Number|block height|-|-
+      &emsp;time|Number|occurred time|-|-
+      &emsp;past|Number|the number of seconds since the transaction passed|-|-
+      &emsp;type|String|transaction type|-|[Transaction Type](#Transaction-Type)
+      &emsp;account|String|transaction initiator wallet address|-|-
+      &emsp;seq|Number|sequence|-|-
+      &emsp;fee|Number|transaction gas|unit is `SWTC`, decimal, minimum 0.00001|-
+      &emsp;succ|String|if success|"tesSUCCESS" means success|-
 
-      1. 当type=`Payment`时，`data`包含
-
-         Key|Type|Description|Remark|Possible
-         :--|:--:|:--|:--|:--
-         dest|String|转账目的钱包地址|-|-
-         amount|[Amount](#Amount-Object)|转账币种和数量|-|-
-         memos|Array|转账备注|-|-
-         &emsp;Memo|[Memo](#Memo-Object)|备注内容|-|-
-
-      2. 当type=`OfferCreate`时，`data`包含
+      1. when type=`Payment`，`data` includes
 
          Key|Type|Description|Remark|Possible
          :--|:--:|:--|:--|:--
-         flag|Number|买/卖|-|[Flag Type](#Flag-Type)
-         takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
-         takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
-         realGets|[Amount](#Amount-Object)|实际挂单付出币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
-         realPays|[Amount](#Amount-Object)|实际挂单得到币种和数量（即扣除立即成交之后形成Offer的那部分）|若挂单立即全部成交则该字段不存在|-
-         matchGets|[Amount](#Amount-Object)|实际成交付出币种和数量|若没有实际成交则该字段不存在|-
-         matchPays|[Amount](#Amount-Object)|实际成交得到币种和数量|若没有实际成交则该字段不存在|-
-         matchFlag|Number|撮合标志|若没有撮合，则该字段不存在；数字: 表示多方撮合，比如3表示三方撮合|-
-         affectedNodes|Array|挂单立即成交部分（以被动成交钱包的角度）|根据该数组分析出matchGets、matchPays以及matchFlag|-
-         &emsp;&emsp;account|String|被动成交的钱包地址|-|-
-         &emsp;&emsp;seq|Number|该被动成交的挂单序号|-|-
-         &emsp;&emsp;flag|Number|该被动成交的挂单性质|-|[Flag Type](#Flag-Type)
-         &emsp;&emsp;previous|Object|被动成交前的交易对币种和数量|该字段可能没有，若没有该字段，表示这个被动成交记录是撤消自己的反向挂单，这种情况在自己新的挂单会吃掉自己以前的反向挂单时会发生，就是说不允许自己吃掉自己的挂单，一旦要出现这种情况时，会先把自己以前的反向挂单撤消，然后再把新单挂上去|-
-         &emsp;&emsp;final|Object|被动成交后的数量|-|-
+         dest|String|destination address|-|-
+         amount|[Amount](#Amount-Object)|token and amount|-|-
+         memos|Array|memo|-|-
+         &emsp;Memo|[Memo](#Memo-Object)|memo data|-|-
 
-      3. 当type=`OfferCancel`时，`data`包含
+      2. when type=`OfferCreate`，`data` includes
 
          Key|Type|Description|Remark|Possible
          :--|:--:|:--|:--|:--
-         offerSeq|Number|取消挂单的序号|-|-
-         takerGets|[Amount](#Amount-Object)|取消挂单的付出币种和数量|-|-
-         takerPays|[Amount](#Amount-Object)|取消挂单的得到币种和数量|-|-
+         flag|Number|buy/sell|-|[Flag Type](#Flag-Type)
+         takerGets|[Amount](#Amount-Object)|token and amount of paying|-|-
+         takerPays|[Amount](#Amount-Object)|token and amount of getting|-|-
+         realGets|[Amount](#Amount-Object)|the token and amount paid for the actual transaction(deducting the immediate transaction)|is not exist if the transaction is filled immediately|-
+         realPays|[Amount](#Amount-Object)|the token and amount got from the actual transaction(deducting the immediate transaction)|is not exist if the transaction is filled immediately|-
+         matchGets|[Amount](#Amount-Object)|token and amount actual paid|is not exist if there is no actual deal|-
+         matchPays|[Amount](#Amount-Object)|token and amount actual got|is not exist if there is no actual deal|-
+         matchFlag|Number|match flag|is not exist if there is no match, indicates a multi-party match, such as 3 for a three-party match|-
+         affectedNodes|Array|part of the deal for immediate transaction (from the perspective of a passive transaction wallet)|analyze `matchGets`, `matchPays`, and `matchFlag` based on the array|-
+         &emsp;&emsp;account|String|wallet address of passive transaction|-|-
+         &emsp;&emsp;seq|Number|sequence of passive deal|-|-
+         &emsp;&emsp;flag|Number|transaction type of passive deal|-|[Flag Type](#Flag-Type)
+         &emsp;&emsp;previous|Object|token and amount of transaction pair before passive transaction|may not exist. Without this field, it means that this passive transaction record is to cancel your own reverse pending order. This situation will happen when your new pending order will eat your previous reverse pending order, which means you are not allowed to eat it yourself. Drop your own pending order. When this happens, you will first cancel your previous reverse pending order and then place the new order|-
+         &emsp;&emsp;final|Object|amount after passive deal|-|-
 
-   2. 如果是区块哈希
+      3. when type=`OfferCancel`，`data` includes
+
+         Key|Type|Description|Remark|Possible
+         :--|:--:|:--|:--|:--
+         offerSeq|Number|sequence of canceled transaction|-|-
+         takerGets|[Amount](#Amount-Object)|paid token and amount of canceled transaction|-|-
+         takerPays|[Amount](#Amount-Object)|got token and amount of canceled transaction|-|-
+
+   2. If is block hash
 
       Key|Type|Description|Remark|Possible
       :--|:--:|:--|:--|:--
       code|String|-|"0" means success|-
       msg|String|message description|-|-
       data|Object|-|-|-
-      &emsp;list|Array|区块中包含的交易列表|字段说明参见交易哈希查询response|-
-      &emsp;count|Number|区块中包含的交易总数|-|-
-      &emsp;info|Object|区块信息|-|-
-      &emsp;&emsp;_id|String|区块哈希|-|-
-      &emsp;&emsp;hashType|Number|哈希类型|1:区块哈希；2:交易哈希|1
-      &emsp;&emsp;upperHash|String|所属区块哈希|-|""
-      &emsp;&emsp;block|Number|区块的区块高度|-|-
-      &emsp;&emsp;time|Number|区块的关闭时间|-|-
-      &emsp;&emsp;past|Number|区块距现在过去的秒数|-|-
-      &emsp;&emsp;transNum|Number|区块中交易数量|-|-
-      &emsp;&emsp;parentHash|String|上一区块的哈希|-|-
-      &emsp;&emsp;totalCoins|String|SWTC的总量|客户端除以1000000后所得即是真实的SWTC总量（需要bignumber处理）|-
+      &emsp;list|Array|-|details see previous|-
+      &emsp;count|Number|total number of transactions in the block|-|-
+      &emsp;info|Object|block info|-|-
+      &emsp;&emsp;_id|String|block hash|-|-
+      &emsp;&emsp;hashType|Number|hash type|1:block hash；2:transaction hash|1
+      &emsp;&emsp;upperHash|String|block hash|-|""
+      &emsp;&emsp;block|Number|block height|-|-
+      &emsp;&emsp;time|Number|block closed time|-|-
+      &emsp;&emsp;past|Number|number of seconds since block elapsed|-|-
+      &emsp;&emsp;transNum|Number|number of transactions in the block|-|-
+      &emsp;&emsp;parentHash|String|hash of the previous block|-|-
+      &emsp;&emsp;totalCoins|String|total amount of SWTC|divided by 1000000 to get the actual SWTC amount|-
 
-### 4. 根据区块HASH查询其包含的交易列表
+### 4. Query the list of transactions contained by block hash
 
 * route
 
@@ -257,10 +255,10 @@
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
    uuid|String|true|-|-|unique id
-   h|String|true|-|-|交易hash
+   h|String|true|-|-|transaction hash
    p|Number|true|-|-|number of pages, starting from 0
    s|Number|true|10/20/50/100|20|size per page
-   n|Number|true|-|-|区块中一共有多少个交易记录
+   n|Number|true|-|-|number of transactions in the block
 
 * response
 
@@ -269,12 +267,12 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;list|Array|区块中包含的交易列表|绝大部分字段说明参见交易哈希查询response|-
-   &emsp;&emsp;index|Number|交易在区块内的序号|index升序排列|-
+   &emsp;list|Array|-|For the description of most fields, see response of transaction hash query|-
+   &emsp;&emsp;index|Number|sequence of the transaction in the block|sort by ascending|-
 
-### 5. 指定钱包查询
+### 5. Specify wallet query
 
-#### 5.1 指定钱包的余额查询（包括所有Token的余额、所有Token的冻结数量）
+#### 5.1 Query the balance of the specified wallet (including the balance of all tokens and the frozen quantity of all tokens)
 
 * route
 
@@ -299,11 +297,11 @@
    msg|String|message description|-|-
    data|Object|-|-|-
    &emsp;_id|String|wallet address|-|-
-   &emsp;(`token名称`_`发行方`)|Object|-|-|-
-   &emsp;&emsp;value|String|余额|-|-
-   &emsp;&emsp;frozen|String|冻结数量|-|-
+   &emsp;(`token name`_`issuer address`)|Object|-|-|-
+   &emsp;&emsp;value|String|balance|-|-
+   &emsp;&emsp;frozen|String|frozen quantity|-|-
 
-### 5.2 指定钱包的当前委托单查询
+### 5.2 Query the current order of the specified wallet
 
 * route
 
@@ -321,8 +319,8 @@
    p|Number|true|-|-|number of pages, starting from 0
    s|Number|false|10/20/50/100|20|size per page
    w|String|true|-|-|wallet address
-   c|String|false|-|-|交易对（可以不传值，不传值表示查询全部类型交易对的委托单。形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录）
-   bs|Number|false|0:买或卖<br>1:买<br>2:卖|0|委托性质,如果传值必须与cParameter一起使用
+   c|String|false|-|-|transaction pair (You can pass no value. If you do n’t pass a value, it means to query the order of all types of transaction pairs. For example: SWTC-CNY or swtc-cny, it must be in the form of the original sequential base-counter of the transaction pair. For example, it cannot be CNY -SWTC, otherwise the buying and selling relationship may be disordered. In addition, the transaction pair can only specify base or counter, such as swtc- or -cny. For all transaction pairs, please refer to the [appendix](#appendix)）
+   bs|Number|false|0:buy and sell<br>1:buy<br>2:sell|0|delegate type, if passed by value must be used with `c` parameter
 
 * response
 
@@ -331,17 +329,17 @@
    code|String|-|"0" means success|-
    msg|String|message description|-|-
    data|Object|-|-|-
-   &emsp;count|Number|委托单个数|-|-
-   &emsp;list|Array|区块中包含的交易列表|-|-
-   &emsp;&emsp;time|Number|委托单的挂单时间（所属区块的时间）|-|-
-   &emsp;&emsp;past|Number|距现在过去的秒数|-|-
-   &emsp;&emsp;hash|String|挂单哈希|-|-
-   &emsp;&emsp;block|Number|区块高度|-|-
-   &emsp;&emsp;flag|Number|买/卖|-|[Flag Type](#Flag-Type)
-   &emsp;&emsp;takerGets|[Amount](#Amount-Object)|挂单付出币种和数量|-|-
-   &emsp;&emsp;takerPays|[Amount](#Amount-Object)|挂单得到币种和数量|-|-
+   &emsp;count|Number|number of order|-|-
+   &emsp;list|Array|-|-|-
+   &emsp;&emsp;time|Number|time of order|-|-
+   &emsp;&emsp;past|Number|number of seconds since create|-|-
+   &emsp;&emsp;hash|String|hash|-|-
+   &emsp;&emsp;block|Number|block height|-|-
+   &emsp;&emsp;flag|Number|buy/sell|-|[Flag Type](#Flag-Type)
+   &emsp;&emsp;takerGets|[Amount](#Amount-Object)|pay token and amount|-|-
+   &emsp;&emsp;takerPays|[Amount](#Amount-Object)|get token and amount|-|-
 
-#### 5.3 指定钱包的历史交易查询
+#### 5.3 Query historical transaction of specified wallet
 
 * route
 
@@ -358,9 +356,9 @@
    uuid|String|true|-|-|unique id
    p|Number|true|-|-|number of pages, starting from 0
    s|Number|true|10/20/50/100|20|size per page
-   b|String|false|-|-|开始日期，形如YYYY-MM-DD
-   e|String|false|-|-|结束日期，形如YYYY-MM-DD
-   t|String|false|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|交易类型（多个类型以逗号分隔，可以不传值，不传值表示查询所有类型）
+   b|String|false|-|-|start date，YYYY-MM-DD
+   e|String|false|-|-|end date，YYYY-MM-DD
+   t|String|false|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|transaction type (multiple types are separated by commas, and no value can be passed which means that all types are queried)
    c|String|false|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
    bs|Number|false|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
    w|String|true|-|-|wallet address
