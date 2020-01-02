@@ -1,0 +1,4 @@
+#include "EN/01_preface.md"
+#include "EN/02_jingtum.md"
+#include "EN/03_system_architecture.md"
+#include "EN/04_software_architecture.md"

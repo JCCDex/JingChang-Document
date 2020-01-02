@@ -1,0 +1,7 @@
+{
+  "build": "./zh-CN/README.cn.md",
+  "files": ["./zh-CN/_README.md"],
+  "tableOfContents": {
+    "heading": "# 目录"
+  }
+}

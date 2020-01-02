@@ -1,0 +1,7 @@
+{
+  "build": "./EN/README.en.md",
+  "files": ["./EN/_README.md"],
+  "tableOfContents": {
+    "heading": "# Index"
+  }
+}
