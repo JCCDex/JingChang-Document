@@ -11,6 +11,18 @@
 
 #### 1.1 获取配置数据
 
+* route
+
+   `/static/config/jc_config.json`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   --
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -29,6 +41,20 @@
 
 #### 2.1 获取钱包余额
 
+* route
+
+   `/exchange/balances/:address`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   address|String|是|-|-|钱包地址
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -45,6 +71,22 @@
      &emsp;&emsp;reserve|String|激活钱包所需币种数量|-|-
 
 #### 2.2 获取交易历史记录
+
+* route
+
+   `/exchange/tx/:address?ledger=&seq=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   address|String|是|-|-|钱包地址
+   ledger|Number|-|-|-|账本号，首次查询可以省略，之后值为上次查询返回的ledger值
+   seq|Number|-|-|-|上次查询的返回seq值，首次查询可以省略
 
 * 返回结果
 
@@ -81,6 +123,22 @@
 
 #### 2.3 获取转账历史记录
 
+* route
+
+   `/exchange/payments/:address?ledger=&seq=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   address|String|是|-|-|钱包地址
+   ledger|Number|-|-|-|账本号，首次查询可以省略，之后值为上次查询返回的ledger值
+   seq|Number|-|-|-|上次查询的返回seq值，首次查询可以省略
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -103,6 +161,21 @@
 
 #### 2.4 获取当前挂单
 
+* route
+
+   `/exchange/orders/:address/:page`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   address|String|是|-|-|钱包地址
+   page|Number|是|-|-|当前页
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -121,6 +194,20 @@
 
 #### 2.5 创建挂单
 
+* route
+
+   `/exchange/sign_order`
+
+* method
+
+   `post`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   sign|String|是|-|-|签名
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -133,9 +220,13 @@
 
 #### 2.6 取消挂单
 
-```nodejs
-   let res = await instance.deleteOrder(sign)
-```
+* route
+
+   `/exchange/sign_cancel_order`
+
+* method
+
+   `post`
 
 * 请求参数
 
@@ -149,6 +240,20 @@
 
 #### 2.7 获取序列号
 
+* route
+
+   `/exchange/sequence/:address`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   address|String|是|-|-|钱包地址
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -161,11 +266,39 @@
 
 #### 2.8 转账
 
+* route
+
+   `/exchange/sign_payment`
+
+* method
+
+   `post`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   sign|String|是|-|-|签名
+
 * 返回结果
 
   * 同[2.5](#2.5-创建挂单)
   
 #### 2.9 获取订单详情
+
+* route
+
+   `/exchange/detail/:hash`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   hash|String|是|-|-|交易哈希
 
 * 返回结果
 
@@ -192,15 +325,21 @@
 
 ### 3. 数据接口
 
-```nodejs
-   const JcInfo = require("jcc_rpc").JcInfo
-   let hosts = ["ijiijhg293cabc.jccdex.cn"]
-   let port = 443
-   let https = true
-   let instance = new JcInfo(hosts, port, https)
-```
-
 #### 3.1 获取指定币种24小时的行情数据
+
+* route
+
+   `/info/ticker/:pari`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   pari|String|是|-|-|币种对，如SWT-CNY
 
 * 返回结果
 
@@ -220,6 +359,18 @@
 
 #### 3.2 获取所有币种24小时的行情数据
 
+* route
+
+   `/info/alltickers`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   --
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -238,6 +389,21 @@
      &emsp;&emsp;-|Number|成交笔数|-|-
 
 #### 3.3 获取市场深度
+
+* route
+
+   `/info/depth/:pari/:type`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   pari|String|是|-|-|币种对，如SWT-CNY
+   type|String|是|normal : 数据长度为5<br>more : 数据长度为50|-|类型
 
 * 返回结果
 
@@ -261,6 +427,21 @@
 
 #### 3.4 获取K线数据
 
+* route
+
+   `/info/kline/:pari/:type`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   pari|String|是|-|-|币种对，如SWT-CNY
+   type|String|是|minute、5minute、15minute、30minute、<br>hour、4hour、day、week、mouth|-|类型
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -279,6 +460,22 @@
 
 #### 3.5 获取分时数据
 
+* route
+
+   `/info/history/:pari/:type?time=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   pari|String|是|-|-|币种对，如SWT-CNY
+   type|String|是|all、more、newest|-|类型
+   time|String|type=`newest`时|-|-|时间戳
+
 * 返回结果
 
    字段|类型|描述|备注|可能值
@@ -294,6 +491,20 @@
      &emsp;&emsp;-|Number|撮合标志|-|1:非撮合<br>3:三方撮合
 
 #### 3.6 获取币种间汇率
+
+* route
+
+   `/:pari.json`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   pari|String|是|-|-|币种对，如SWT-CNY
 
 * 返回结果
 
