@@ -344,7 +344,7 @@ info.setmBaseUrl(jccUrl);
    begin|String|-|-|开始日期，形如YYYY-MM-DD
    end|String|-|-|结束日期，形如YYYY-MM-DD
    type|String|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|交易类型（多个类型以逗号分隔，可以不传值，不传值表示查询所有类型）
-   currency|String|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
+   currency|String|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在type=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在type=Send或Receive时，传值必须长度<8，如JJCC）
    address|String|-|-|钱包地址
    jCallback|JCallback|-|-|回调
 
@@ -363,8 +363,8 @@ info.setmBaseUrl(jccUrl);
    uuid|String|-|-|唯一id
    address|String|-|-|钱包地址
    dateTpye|int|2: 日<br>3:月<br>4:年|-|日期类型
-   begin|String|-|-|具体某一天/月/年的日期，若dt=2，则必须形如YYYY-MM-DD；若dt=3，则必须形如YYYY-MM；若dt=4，则必须形如YYYY
-   end|String|-|-|格式要求同b参数。若指定e的值，则累加统计b～e时间段范围内相同token的值，另外e的值必须大于b的值。对于dt=2或3时，b和e之间天数之差不能超过一年的时间；dt=4时，b和e之间的间隔没有限制
+   begin|String|-|-|具体某一天/月/年的日期，若dt=2，则必须形如YYYY-MM-DD；若dt=3，则必须形如YYYY-MM；若dateTpye=4，则必须形如YYYY
+   end|String|-|-|格式要求同begin参数。若指定end的值，则累加统计begin～end时间段范围内相同token的值，另外end的值必须大于begin的值。对于dateTpye=2或3时，begin和end之间天数之差不能超过一年的时间；dateTpye=4时，begin和end之间的间隔没有限制
    type|String|Send/Receive|-|交易类型
    token|String|-|-|token名称（SWT无需发行方，值为SWTC_，其他token需要带发行方，币种大写, 如c=CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or）
    jCallback|JCallback|-|-|回调

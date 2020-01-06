@@ -344,7 +344,7 @@ info.setmBaseUrl(jccUrl);
    begin|String|-|-|start date，YYYY-MM-DD
    end|String|-|-|end date，YYYY-MM-DD
    type|String|OfferCreate<br>OfferAffect<br>OfferCancel<br>Send<br>Receive|-|transaction type (multiple types are separated by commas, and no value can be passed which means that all types are queried)
-   currency|String|-|-|transaction pair or token（You can not pass a value, which means that the currency is not used as the query condition. When `t` is `OfferCreate`, `OfferAffect` or `OfferCancel`, the value passed must be in the form of: `SWTC-CNY` or `swtc-cny`, and must be in the form of the original sequence base-counter of the transaction pair. For example, it cannot be `CNY-SWTC`, otherwise the sales relationship may mess, in addition, the transaction pair can only specify base or counter, such as `swtc-` or `-cny`. For all transaction pairs, please refer to the [appendix](#appendix); when t is `Send` or `Receive`, the value must be less than 8 in length, such as `JJCC`）
+   currency|String|-|-|transaction pair or token（You can not pass a value, which means that the currency is not used as the query condition. When `type` is `OfferCreate`, `OfferAffect` or `OfferCancel`, the value passed must be in the form of: `SWTC-CNY` or `swtc-cny`, and must be in the form of the original sequence base-counter of the transaction pair. For example, it cannot be `CNY-SWTC`, otherwise the sales relationship may mess, in addition, the transaction pair can only specify base or counter, such as `swtc-` or `-cny`. For all transaction pairs, please refer to the [appendix](#appendix); when `type` is `Send` or `Receive`, the value must be less than 8 in length, such as `JJCC`）
    address|String|-|-|wallet address
    jCallback|JCallback|-|-|call back
 
