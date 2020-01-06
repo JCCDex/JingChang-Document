@@ -26,7 +26,7 @@
    config.setmBaseUrl(jccUrl);
 ```
 
-#### 1.1 [Query config of jccdex](../Jingchang-JCC-RPC-Detail.md#1.1-获取配置数据)
+#### 1.1 [Query config of jccdex](../Jingchang-RPC-Server.md#1.1-获取配置数据)
 
 ```java
   config.requestConfig(jCallBack);
@@ -42,49 +42,49 @@
    exchange.setmBaseUrl(jccUrl);
 ```
 
-#### 2.1 [Query balances](../Jingchang-JCC-RPC-Detail.md#2.1-获取钱包余额)
+#### 2.1 [Query balances](../Jingchang-RPC-Server.md#2.1-获取钱包余额)
 
 ```java
    exchange.requestBalance(address, jCallback);
 ```
 
-#### 2.2 [Query transaction history](../Jingchang-JCC-RPC-Detail.md#2.2-获取交易历史记录)
+#### 2.2 [Query transaction history](../Jingchang-RPC-Server.md#2.2-获取交易历史记录)
 
 ```java
    exchange.requestHistoricTransactions(address,page,ledger,seq,jCallback);
 ```
 
-#### 2.3 [Query the current orders](../Jingchang-JCC-RPC-Detail.md#2.4-获取当前挂单)
+#### 2.3 [Query the current orders](../Jingchang-RPC-Server.md#2.4-获取当前挂单)
 
 ```java
    exchange.requestOrders(address, page, jCallback);
 ```
 
-#### 2.4 [Create a order](../Jingchang-JCC-RPC-Detail.md#2.5-创建挂单)
+#### 2.4 [Create a order](../Jingchang-RPC-Server.md#2.5-创建挂单)
 
 ```java
    exchange.createOrder(signature, jCallback);
 ```
 
-#### 2.5 [Cancel a order](../Jingchang-JCC-RPC-Detail.md#2.6-取消挂单)
+#### 2.5 [Cancel a order](../Jingchang-RPC-Server.md#2.6-取消挂单)
 
 ```java
    exchange.cancelOrder(signature, jCallback);
 ```
 
-#### 2.6 [Query the sequence](../Jingchang-JCC-RPC-Detail.md#2.7-获取序列号)
+#### 2.6 [Query the sequence](../Jingchang-RPC-Server.md#2.7-获取序列号)
 
 ```java
    exchange.requestSequence(address);
 ```
 
-#### 2.7 [Payment](../Jingchang-JCC-RPC-Detail.md#2.8-转账)
+#### 2.7 [Payment](../Jingchang-RPC-Server.md#2.8-转账)
 
 ```java
    exchange.transferToken(signature, jCallback);
 ```
 
-#### 2.8 [Query the order details](../Jingchang-JCC-RPC-Detail.md#2.9-获取订单详情)
+#### 2.8 [Query the order details](../Jingchang-RPC-Server.md#2.9-获取订单详情)
 
 ```java
    exchange.requestOrderDetail(hash, jCallback);
@@ -100,37 +100,37 @@
 info.setmBaseUrl(jccUrl);
 ```
 
-#### 3.1 [Query 24-hour market data of a currency](../Jingchang-JCC-RPC-Detail.md#3.1-获取指定币种24小时的行情数据)
+#### 3.1 [Query 24-hour market data of a currency](../Jingchang-RPC-Server.md#3.1-获取指定币种24小时的行情数据)
 
 ```java
    info.requestTicker(base, counter, jCallback);
 ```
 
-#### 3.2 [Query 24-hour market data of all currencies](../Jingchang-JCC-RPC-Detail.md#3.2-获取所有币种24小时的行情数据)
+#### 3.2 [Query 24-hour market data of all currencies](../Jingchang-RPC-Server.md#3.2-获取所有币种24小时的行情数据)
 
 ```java
    info.requestAllTickers(jCallback);
 ```
 
-#### 3.3 [Query the market depth](../Jingchang-JCC-RPC-Detail.md#3.3-获取市场深度)
+#### 3.3 [Query the market depth](../Jingchang-RPC-Server.md#3.3-获取市场深度)
 
 ```java
    info.requestDepth(base, counter, type, jCallback);
 ```
   
-#### 3.4 [Query K-line data](../Jingchang-JCC-RPC-Detail.md#3.4-获取K线数据)
+#### 3.4 [Query K-line data](../Jingchang-RPC-Server.md#3.4-获取K线数据)
 
 ```java
    info.requestKline(base, counter, type, jCallback);
 ```
 
-#### 3.5 [Query time-sharing data](../Jingchang-JCC-RPC-Detail.md#3.5-获取分时数据)
+#### 3.5 [Query time-sharing data](../Jingchang-RPC-Server.md#3.5-获取分时数据)
 
 ```java
    info.requestHistory(base, counter, type, time, jCallback);
 ```
 
-#### 3.6 [Query exchange rate](../Jingchang-JCC-RPC-Detail.md#3.6-获取币种间汇率)
+#### 3.6 [Query exchange rate](../Jingchang-RPC-Server.md#3.6-获取币种间汇率)
 
 ```java
    info.requestTickerFromCMC(token, currency, jCallback)
