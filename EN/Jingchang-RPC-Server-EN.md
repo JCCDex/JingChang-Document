@@ -230,7 +230,7 @@
 
 * response
 
-  * see [2.5](#2.5-Create-order)
+  * see [2.5](#25-Create-order)
 
 #### 2.7 Get sequence
 
@@ -276,7 +276,7 @@
 
 * response
 
-  * see [2.5](#2.5-Create-order)
+  * see [2.5](#25-Create-order)
   
 #### 2.9 Get order details
 
