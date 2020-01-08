@@ -329,7 +329,7 @@
 
 * route
 
-   `/info/ticker/:master`
+   `/info/ticker/:pair`
 
 * method
 
