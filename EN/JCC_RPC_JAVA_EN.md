@@ -18,7 +18,7 @@
    void onFail(Exception e);
 ```
 
-### 1. Config interface
+### 1. Config API
 
 ```java
    JccdexUrl jccUrl = new JccdexUrl("weidex.vip", true);
@@ -26,13 +26,15 @@
    config.setmBaseUrl(jccUrl);
 ```
 
-#### 1.1 [Query config of jccdex](../Jingchang-RPC-Server.md#1.1-获取配置数据)
+#### 1.1 Query config of jccdex
 
 ```java
   config.requestConfig(jCallBack);
 ```
 
-### 2. Transaction interface
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#11-get-config-data)
+
+### 2. Exchange API
 
 ```java
    // JccdexUrl jccUrl = new JccdexUrl("xxx", true);
@@ -42,55 +44,71 @@
    exchange.setmBaseUrl(jccUrl);
 ```
 
-#### 2.1 [Query balances](../Jingchang-RPC-Server.md#2.1-获取钱包余额)
+#### 2.1 Query balances
 
 ```java
    exchange.requestBalance(address, jCallback);
 ```
 
-#### 2.2 [Query transaction history](../Jingchang-RPC-Server.md#2.2-获取交易历史记录)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#21-get-balances)
+
+#### 2.2 Query transaction history
 
 ```java
    exchange.requestHistoricTransactions(address,page,ledger,seq,jCallback);
 ```
 
-#### 2.3 [Query the current orders](../Jingchang-RPC-Server.md#2.4-获取当前挂单)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#22-get-transaction-history)
+
+#### 2.3 Query the current orders
 
 ```java
    exchange.requestOrders(address, page, jCallback);
 ```
 
-#### 2.4 [Create a order](../Jingchang-RPC-Server.md#2.5-创建挂单)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#24-get-the-current-pending-order)
+
+#### 2.4 Create order
 
 ```java
    exchange.createOrder(signature, jCallback);
 ```
 
-#### 2.5 [Cancel a order](../Jingchang-RPC-Server.md#2.6-取消挂单)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#25-create-ordera)
+
+#### 2.5 Cancel order
 
 ```java
    exchange.cancelOrder(signature, jCallback);
 ```
 
-#### 2.6 [Query the sequence](../Jingchang-RPC-Server.md#2.7-获取序列号)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#26-cancel-order)
+
+#### 2.6 Get sequence
 
 ```java
    exchange.requestSequence(address);
 ```
 
-#### 2.7 [Payment](../Jingchang-RPC-Server.md#2.8-转账)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#27-get-sequence)
+
+#### 2.7 Payment
 
 ```java
    exchange.transferToken(signature, jCallback);
 ```
 
-#### 2.8 [Query the order details](../Jingchang-RPC-Server.md#2.9-获取订单详情)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#28-transfer)
+
+#### 2.8 Query the order details
 
 ```java
    exchange.requestOrderDetail(hash, jCallback);
 ```
 
-### 3. Data interface
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#29-get-order-details)
+
+### 3. Info API
 
 ```java
    // JccdexUrl jccUrl = new JccdexUrl("xxx", true);// https://xxx:443
@@ -100,43 +118,55 @@
 info.setmBaseUrl(jccUrl);
 ```
 
-#### 3.1 [Query 24-hour market data of a currency](../Jingchang-RPC-Server.md#3.1-获取指定币种24小时的行情数据)
+#### 3.1 Query 24-hour market data for the specified currency
 
 ```java
    info.requestTicker(base, counter, jCallback);
 ```
 
-#### 3.2 [Query 24-hour market data of all currencies](../Jingchang-RPC-Server.md#3.2-获取所有币种24小时的行情数据)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#31-get-24-hour-market-data-for-the-specified-currency)
+
+#### 3.2 Query 24-hour market data of all currencies
 
 ```java
    info.requestAllTickers(jCallback);
 ```
 
-#### 3.3 [Query the market depth](../Jingchang-RPC-Server.md#3.3-获取市场深度)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#32-get-24-hour-market-data-for-all-currencies)
+
+#### 3.3 Query the market depth
 
 ```java
    info.requestDepth(base, counter, type, jCallback);
 ```
+
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#33-get-market-depth)
   
-#### 3.4 [Query K-line data](../Jingchang-RPC-Server.md#3.4-获取K线数据)
+#### 3.4 Query K-line data
 
 ```java
    info.requestKline(base, counter, type, jCallback);
 ```
 
-#### 3.5 [Query time-sharing data](../Jingchang-RPC-Server.md#3.5-获取分时数据)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#34-get-k-line-data)
+
+#### 3.5 Query time-sharing data
 
 ```java
    info.requestHistory(base, counter, type, time, jCallback);
 ```
 
-#### 3.6 [Query exchange rate](../Jingchang-RPC-Server.md#3.6-获取币种间汇率)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#35-get-time-sharing-data)
+
+#### 3.6 Query exchange rate
 
 ```java
    info.requestTickerFromCMC(token, currency, jCallback)
 ```
 
-### 4. Explorer interface
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#36-get-inter-currency-exchange-rates)
+
+### 4. Explorer API
 
 ```java
    JccdexUrl jccUrl = new JccdexUrl("expjia1b6719b6e6.jccdex.cn", true);
@@ -144,32 +174,43 @@ info.setmBaseUrl(jccUrl);
    explore.setmBaseUrl(jccUrl);
 ```
 
-#### 5.1 [Query the balance](../Jingchang-Explorer-Server.md#5.1-指定钱包的余额查询（包括所有Token的余额、所有Token的冻结数量）)
+#### 5.1 Query the balance
 
 ```java
    explore.requestBalance(uuid, address, jCallback);
 ```
 
-#### 5.2 [Query transaction details by hash](../Jingchang-Explorer-Server.md#3.-根据哈希查询交易详细)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#51-query-the-balance-of-the-specified-wallet-including-the-balance-of-all-tokens-and-the-frozen-quantity-of-all-tokens
+)
+
+#### 5.2 Query transaction details by hash
 
 ```java
    explore.requestTransDetails(uuid, hash, jCallback);
 ```
 
-#### 5.3 [Query historical transaction of specified wallet](../Jingchang-Explorer-Server.md#5.3-指定钱包的历史交易查询)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#3-query-transaction-details-by-hash)
+
+#### 5.3 Query historical transaction of specified wallet
 
 ```java
    explore.requestHistoricTransWithAddr(uuid, page, size, begin, end, type, currency, address, jCallback);
 ```
 
-#### 5.4 [Query the daily/month/ year payment or receipt of a certain wallet for a certain wallet](../Jingchang-Explorer-Server.md#11.-查询某个钱包每天/月/年的支付或收到某个token的笔数和数量)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#53-query-historical-transaction-of-specified-wallet)
+
+#### 5.4 Query the daily/month/ year payment or receipt of a certain wallet for a certain wallet
 
 ```java
    explore.requestPaymentSummary(uuid, address, dateTpye, begin, end, type, token, jCallback);
 ```
 
-#### 5.5 [Query the transfer hash information of a certain transaction within a certain period of time](../Jingchang-Explorer-Server.md#10.-查询某个token在某个时间段内的转账交易hash信息)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#11-query-the-dailymonth-year-payment-or-receipt-of-a-certain-wallet-for-a-certain-wallet)
+
+#### 5.5 Query the transfer hash information of a certain transaction within a certain period of time
 
 ```java
    explore.requestHistoricTransWithCur(uuid, page, size, begin, end, type, currency, jCallback);
 ```
+
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#10-query-the-transfer-hash-information-of-a-certain-transaction-within-a-certain-period-of-time)

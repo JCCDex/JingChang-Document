@@ -13,7 +13,7 @@
 
 ## Interface design
 
-### 1. Config interface
+### 1. Config API
 
 ```nodejs
    const JcConfig = require("jcc_rpc").JcConfig
@@ -23,63 +23,81 @@
    let instance = new JcConfig(hosts, port, https)
 ```
 
-#### 1.1 [Query config of jccdex](../Jingchang-RPC-Server.md#1.1-获取配置数据)
+#### 1.1 Query config of jccdex
 
 ```nodejs
    let res = await instance.getConfig()
 ```
 
-### 2. Transaction interface
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#11-get-config-data)
 
-#### 2.1 [Query balances](../Jingchang-RPC-Server.md#2.1-获取钱包余额)
+### 2. Exchange API
+
+#### 2.1 Query balances
 
 ```nodejs
    let res = await instance.getBalances(address)
 ```
 
-#### 2.2 [Query transaction history](../Jingchang-RPC-Server.md#2.2-获取交易历史记录)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#21-get-balances)
+
+#### 2.2 Query transaction history
 
 ```nodejs
    let res = await instance.getHistoricTransactions(address, ledger, seq)
 ```
 
-#### 2.3 [Query peyment history](../Jingchang-RPC-Server.md#2.3-获取转账历史记录)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#22-get-transaction-history)
+
+#### 2.3 Query payment history
 
 ```nodejs
    let res = await instance.getHistoricPayments(address, ledger, seq)
 ```
 
-#### 2.4 [Query the current orders](../Jingchang-RPC-Server.md#2.4-获取当前挂单)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#23-get-transfer-history)
+
+#### 2.4 Query the current orders
 
 ```nodejs
    let res = await instance.getOrders(address, page)
 ```
 
-#### 2.5 [Create a order](../Jingchang-RPC-Server.md#2.5-创建挂单)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#24-get-the-current-pending-order)
+
+#### 2.5 Create order
 
 ```nodejs
    let res = await instance.createOrder(sign)
 ```
 
-#### 2.6 [Cancel a order](../Jingchang-RPC-Server.md#2.6-取消挂单)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#25-create-ordera)
+
+#### 2.6 Cancel order
 
 ```nodejs
    let res = await instance.deleteOrder(sign)
 ```
 
-#### 2.7 [Query the sequence](../Jingchang-RPC-Server.md#2.7-获取序列号)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#26-cancel-order)
+
+#### 2.7 Get sequence
 
 ```nodejs
    let res = await instance.getSequence(address)
 ```
 
-#### 2.8 [Payment](../Jingchang-RPC-Server.md#2.8-转账)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#27-get-sequence)
+
+#### 2.8 Payment
 
 ```nodejs
    let res = await instance.transferAccount(sign)
 ```
 
-### 3. Data interface
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#28-transfer)
+
+### 3. Info API
 
 ```nodejs
    const JcInfo = require("jcc_rpc").JcInfo
@@ -89,38 +107,50 @@
    let instance = new JcInfo(hosts, port, https)
 ```
 
-#### 3.1 [Query 24-hour market data of a currency](../Jingchang-RPC-Server.md#3.1-获取指定币种24小时的行情数据)
+#### 3.1 Query 24-hour market data for the specified currency
 
 ```nodejs
    let res = await instance.getTicker(base, counter)
 ```
 
-#### 3.2 [Query 24-hour market data of all currencies](../Jingchang-RPC-Server.md#3.2-获取所有币种24小时的行情数据)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#31-get-24-hour-market-data-for-the-specified-currency)
+
+#### 3.2 Query 24-hour market data of all currencies
 
 ```nodejs
    let res = await instance.getAllTickers()
 ```
 
-#### 3.3 [Query the market depth](../Jingchang-RPC-Server.md#3.3-获取市场深度)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#32-get-24-hour-market-data-for-all-currencies)
+
+#### 3.3 Query the market depth
 
 ```nodejs
    let res = await instance.getDepth(base, counter, type)
 ```
+
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#33-get-market-depth)
   
-#### 3.4 [Query K-line data](../Jingchang-RPC-Server.md#3.4-获取K线数据)
+#### 3.4 Query K-line data
 
 ```nodejs
    let res = await instance.getKline(base, counter, type)
 ```
 
-#### 3.5 [Query time-sharing data](../Jingchang-RPC-Server.md#3.5-获取分时数据)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#34-get-k-line-data)
+
+#### 3.5 Query time-sharing data
 
 ```nodejs
    let res = await instance.getHistory(base, counter, type, time)
 ```
 
-#### 3.6 [Query exchange rate](../Jingchang-RPC-Server.md#3.6-获取币种间汇率)
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#35-get-time-sharing-data)
+
+#### 3.6 Query exchange rate
 
 ```nodejs
    let res = await instance.getTickerFromCMC(token, currency)
 ```
+
+* [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-RPC-Server-EN.md#36-get-inter-currency-exchange-rates)
