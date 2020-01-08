@@ -182,7 +182,7 @@
      &emsp;&emsp;pair|String|pair|token name + issuer address|-
      &emsp;&emsp;hash|String|hash|-|-
      &emsp;&emsp;price|String|price|-|-
-     &emsp;&emsp;amoount|String|amount|-|-
+     &emsp;&emsp;amount|String|amount|-|-
      &emsp;&emsp;sequence|String|sequence|-|-
      &emsp;&emsp;passive|Boolean|-|-|-
 

@@ -188,7 +188,7 @@
      &emsp;&emsp;pair|String|挂单交易对|币种+发行方|-
      &emsp;&emsp;hash|String|转账hash|-|-
      &emsp;&emsp;price|String|挂单价格|-|-
-     &emsp;&emsp;amoount|String|挂单数量|-|-
+     &emsp;&emsp;amount|String|挂单数量|-|-
      &emsp;&emsp;sequence|String|挂单序列号|-|-
      &emsp;&emsp;passive|Boolean|-|-|-
 
