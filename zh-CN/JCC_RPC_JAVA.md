@@ -174,7 +174,7 @@ info.setmBaseUrl(jccUrl);
    explore.setmBaseUrl(jccUrl);
 ```
 
-#### 5.1 获取钱包余额
+#### 4.1 获取钱包余额
 
 ```java
    explore.requestBalance(uuid, address, jCallback);
@@ -182,7 +182,7 @@ info.setmBaseUrl(jccUrl);
 
 * [接口详情](https://github.com/JCCDex/JingChang-Document/blob/master/zh-CN/Jingchang-Explorer-Server.md#51-%E6%8C%87%E5%AE%9A%E9%92%B1%E5%8C%85%E7%9A%84%E4%BD%99%E9%A2%9D%E6%9F%A5%E8%AF%A2%E5%8C%85%E6%8B%AC%E6%89%80%E6%9C%89token%E7%9A%84%E4%BD%99%E9%A2%9D%E6%89%80%E6%9C%89token%E7%9A%84%E5%86%BB%E7%BB%93%E6%95%B0%E9%87%8F)
 
-#### 5.2 根据hash获取详细交易信息
+#### 4.2 根据hash获取详细交易信息
 
 ```java
    explore.requestTransDetails(uuid, hash, jCallback);
@@ -190,7 +190,7 @@ info.setmBaseUrl(jccUrl);
 
 * [接口详情](https://github.com/JCCDex/JingChang-Document/blob/master/zh-CN/Jingchang-Explorer-Server.md#3-%E6%A0%B9%E6%8D%AE%E5%93%88%E5%B8%8C%E6%9F%A5%E8%AF%A2%E4%BA%A4%E6%98%93%E8%AF%A6%E7%BB%86)
 
-#### 5.3 获取指定钱包的历史交易
+#### 4.3 获取指定钱包的历史交易
 
 ```java
    explore.requestHistoricTransWithAddr(uuid, page, size, begin, end, type, currency, address, jCallback);
@@ -198,7 +198,7 @@ info.setmBaseUrl(jccUrl);
 
 * [接口详情](https://github.com/JCCDex/JingChang-Document/blob/master/zh-CN/Jingchang-Explorer-Server.md#53-%E6%8C%87%E5%AE%9A%E9%92%B1%E5%8C%85%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BA%A4%E6%98%93%E6%9F%A5%E8%AF%A2)
 
-#### 5.4 获取钱包每天/月/年支付或收到的币种笔数和数量
+#### 4.4 获取钱包每天/月/年支付或收到的币种笔数和数量
 
 ```java
    explore.requestPaymentSummary(uuid, address, dateTpye, begin, end, type, token, jCallback);
@@ -206,7 +206,7 @@ info.setmBaseUrl(jccUrl);
 
 * [接口详情](https://github.com/JCCDex/JingChang-Document/blob/master/zh-CN/Jingchang-Explorer-Server.md#11-%E6%9F%A5%E8%AF%A2%E6%9F%90%E4%B8%AA%E9%92%B1%E5%8C%85%E6%AF%8F%E5%A4%A9%E6%9C%88%E5%B9%B4%E7%9A%84%E6%94%AF%E4%BB%98%E6%88%96%E6%94%B6%E5%88%B0%E6%9F%90%E4%B8%AAtoken%E7%9A%84%E7%AC%94%E6%95%B0%E5%92%8C%E6%95%B0%E9%87%8F)
 
-#### 5.5 查询某个token在某个时间段内的交易hash信息
+#### 4.5 查询某个token在某个时间段内的交易hash信息
 
 ```java
    explore.requestHistoricTransWithCur(uuid, page, size, begin, end, type, currency, jCallback);

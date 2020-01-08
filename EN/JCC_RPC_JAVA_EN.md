@@ -174,7 +174,7 @@ info.setmBaseUrl(jccUrl);
    explore.setmBaseUrl(jccUrl);
 ```
 
-#### 5.1 Query the balance
+#### 4.1 Query the balance
 
 ```java
    explore.requestBalance(uuid, address, jCallback);
@@ -183,7 +183,7 @@ info.setmBaseUrl(jccUrl);
 * [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#51-query-the-balance-of-the-specified-wallet-including-the-balance-of-all-tokens-and-the-frozen-quantity-of-all-tokens
 )
 
-#### 5.2 Query transaction details by hash
+#### 4.2 Query transaction details by hash
 
 ```java
    explore.requestTransDetails(uuid, hash, jCallback);
@@ -191,7 +191,7 @@ info.setmBaseUrl(jccUrl);
 
 * [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#3-query-transaction-details-by-hash)
 
-#### 5.3 Query historical transaction of specified wallet
+#### 4.3 Query historical transaction of specified wallet
 
 ```java
    explore.requestHistoricTransWithAddr(uuid, page, size, begin, end, type, currency, address, jCallback);
@@ -199,7 +199,7 @@ info.setmBaseUrl(jccUrl);
 
 * [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#53-query-historical-transaction-of-specified-wallet)
 
-#### 5.4 Query the daily/month/ year payment or receipt of a certain wallet for a certain wallet
+#### 4.4 Query the daily/month/ year payment or receipt of a certain wallet for a certain wallet
 
 ```java
    explore.requestPaymentSummary(uuid, address, dateTpye, begin, end, type, token, jCallback);
@@ -207,7 +207,7 @@ info.setmBaseUrl(jccUrl);
 
 * [Interface doc](https://github.com/JCCDex/JingChang-Document/blob/master/EN/Jingchang-Explorer-Server-EN.md#11-query-the-dailymonth-year-payment-or-receipt-of-a-certain-wallet-for-a-certain-wallet)
 
-#### 5.5 Query the transfer hash information of a certain transaction within a certain period of time
+#### 4.5 Query the transfer hash information of a certain transaction within a certain period of time
 
 ```java
    explore.requestHistoricTransWithCur(uuid, page, size, begin, end, type, currency, jCallback);
