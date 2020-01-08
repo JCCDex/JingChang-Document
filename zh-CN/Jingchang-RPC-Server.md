@@ -329,7 +329,7 @@
 
 * route
 
-   `/info/ticker/:pari`
+   `/info/ticker/:master`
 
 * method
 
@@ -339,7 +339,7 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|是|-|-|币种对，如SWT-CNY
+   pair|String|是|-|-|币种对，如SWT-CNY
 
 * 返回结果
 
@@ -392,7 +392,7 @@
 
 * route
 
-   `/info/depth/:pari/:type`
+   `/info/depth/:pair/:type`
 
 * method
 
@@ -402,7 +402,7 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|是|-|-|币种对，如SWT-CNY
+   pair|String|是|-|-|币种对，如SWT-CNY
    type|String|是|normal : 数据长度为5<br>more : 数据长度为50|-|类型
 
 * 返回结果
@@ -429,7 +429,7 @@
 
 * route
 
-   `/info/kline/:pari/:type`
+   `/info/kline/:pair/:type`
 
 * method
 
@@ -439,7 +439,7 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|是|-|-|币种对，如SWT-CNY
+   pair|String|是|-|-|币种对，如SWT-CNY
    type|String|是|minute、5minute、15minute、30minute、<br>hour、4hour、day、week、mouth|-|类型
 
 * 返回结果
@@ -462,7 +462,7 @@
 
 * route
 
-   `/info/history/:pari/:type?time=`
+   `/info/history/:pair/:type?time=`
 
 * method
 
@@ -472,7 +472,7 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|是|-|-|币种对，如SWT-CNY
+   pair|String|是|-|-|币种对，如SWT-CNY
    type|String|是|all、more、newest|-|类型
    time|String|type=`newest`时|-|-|时间戳
 
@@ -494,7 +494,7 @@
 
 * route
 
-   `/:pari.json`
+   `/:pair.json`
 
 * method
 
@@ -504,7 +504,7 @@
 
    参数|类型|必填|可选值 |默认值|描述
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|是|-|-|币种对，支持eth、btc，cny、rub，如eth-cny
+   pair|String|是|-|-|币种对，支持eth、btc，cny、rub，如eth-cny
 
 * 返回结果
 

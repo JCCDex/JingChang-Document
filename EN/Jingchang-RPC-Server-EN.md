@@ -323,7 +323,7 @@
 
 * route
 
-   `/info/ticker/:pari`
+   `/info/ticker/:pair`
 
 * method
 
@@ -333,7 +333,7 @@
 
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|true|-|-|like `SWT-CNY`
+   pair|String|true|-|-|like `SWT-CNY`
 
 * response
 
@@ -386,7 +386,7 @@
 
 * route
 
-   `/info/depth/:pari/:type`
+   `/info/depth/:pair/:type`
 
 * method
 
@@ -396,7 +396,7 @@
 
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|true|-|-|like `SWT-CNY`
+   pair|String|true|-|-|like `SWT-CNY`
    type|String|true|`normal`: data length is 5<br>`more`: data length is 50|-|Type
 
 * response
@@ -423,7 +423,7 @@
 
 * route
 
-   `/info/kline/:pari/:type`
+   `/info/kline/:pair/:type`
 
 * method
 
@@ -433,7 +433,7 @@
 
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|true|-|-|like `SWT-CNY`
+   pair|String|true|-|-|like `SWT-CNY`
    type|String|true|minute、5minute、15minute、30minute、<br>hour、4hour、day、week、mouth|-|Type
 
 * response
@@ -456,7 +456,7 @@
 
 * route
 
-   `/info/history/:pari/:type?time=`
+   `/info/history/:pair/:type?time=`
 
 * method
 
@@ -466,7 +466,7 @@
 
    Parameter|Type|Required|Optinal |Default|Description
    --|:--:|:--:|:--:|:--:|:--
-   pari|String|true|-|-|like `SWT-CNY`
+   pair|String|true|-|-|like `SWT-CNY`
    type|String|true|`all`、`more`、`newest`|-|Type
    time|String|false|-|-|timestamp, is required if type is `newest`
 
