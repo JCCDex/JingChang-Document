@@ -31,7 +31,7 @@ import JCCExchange from "jcc_exchange"
 
 * sign function
 
-  [function](https://github.com/JCCDex/jcc_exchange/blob/master/src/index.ts#L216)
+  [function](https://github.com/JCCDex/jcc_exchange/blob/master/src/index.ts#L245)
 
 * parameters description
 
@@ -40,6 +40,7 @@ import JCCExchange from "jcc_exchange"
    Parameter|Type|Required|Default|Description
    :--|:--:|:--:|:--:|:--
    secret|String|true|-|transaction initiator wallet secret
+   token|String|false|swt|native token of different chains,support jingtum,bizain,seaaps chain,[ChainConfig](https://github.com/JCCDex/jcc_exchange/blob/master/src/util/config.ts#L3)
    tx|Object|true|-|signature object
    &emsp;Account|String|true|-|transaction initiator wallet address
    &emsp;Sequence|Number|true|-|transaction sequence
@@ -92,8 +93,10 @@ import JCCExchange from "jcc_exchange"
 const hosts = ["localhost"];
 const port = 80;
 const https = false;
+const urls = ["http://localhost:8080"];
 const retry = 3;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 ```
 **cancel orders, transfer, and set fees all need to be initialized before continuing.no repeat at below**
 
@@ -102,8 +105,9 @@ JCCExchange.init(hosts, port, https, retry);
    Parameter|Type|Required|Default|Description
    :--|:--:|:--:|:--:|:--
    hosts|Array|true|-|domain name of transaction server
-   port|Number|true|-|port of transaction server
+   port|Number or String|true|-|port of transaction server
    https|Boolean|true|-|true is https,false is http
+   urls|Array|true|-|full url of transaction server(protocol + domain name + port)
    retry|Number|false|3|transaction sequence expired,number of retries
 
 #### 2.2 Create order
@@ -121,6 +125,7 @@ const type = "buy";
 const platform = ""; 
 const issuer;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.createOrder(address, secret, amount, base, counter, sum, type, platform, issuer);
 ```
 
@@ -153,6 +158,7 @@ const address = "jxxx";
 const secret = "sxxx";
 const orderSequence = 0;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.cancelOrder(address, secret, orderSequence);
 ```
 
@@ -183,6 +189,7 @@ const to = "jxxx";
 const token = "jjcc";
 const issuer;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.transfer(address, secret, amount, memo, to, token, issuer);
 ```
 
@@ -217,6 +224,7 @@ const rateDen = "1000";
 const token = "jjcc";
 const issuer;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.setBrokerage(platformAccount, platformSecret,feeAccount, rateNum, rateDen, token, issuer);
 ```
 

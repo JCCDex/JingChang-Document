@@ -31,7 +31,7 @@ import JCCExchange from "jcc_exchange"
 
 * 签名函数
 
-  [函数](https://github.com/JCCDex/jcc_exchange/blob/master/src/index.ts#L216)
+  [函数](https://github.com/JCCDex/jcc_exchange/blob/master/src/index.ts#L245)
 
 * 参数说明
 
@@ -40,6 +40,7 @@ import JCCExchange from "jcc_exchange"
    参数|类型|必填|默认值|描述
    :--|:--:|:--:|:--:|:--
    secret|String|是|-|交易发起方井通钱包私钥
+   token|String|否|swt|不同链的原生币种,支持jingtum,bizain,seaaps链,[ChainConfig](https://github.com/JCCDex/jcc_exchange/blob/master/src/util/config.ts#L3)
    tx|Object|是|-|需要签名的交易对象
    &emsp;Account|String|是|-|交易发起方井通钱包地址
    &emsp;Sequence|Number|是|-|交易序列号
@@ -92,8 +93,10 @@ import JCCExchange from "jcc_exchange"
 const hosts = ["localhost"];
 const port = 80;
 const https = false;
+const urls = ["http://localhost:8080"];
 const retry = 3;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 ```
 **取消挂单,转账,设置挂单手续费都需要初始化后才能继续,下面不在赘述**
 
@@ -101,9 +104,10 @@ JCCExchange.init(hosts, port, https, retry);
   
    参数|类型|必填|默认值|描述
    :--|:--:|:--:|:--:|:--
-   hosts|Array|是|-|某个交易服务器域名
-   port|Number|是|-|某个交易服务器端口号
+   hosts|Array|是|-|某个或一组交易服务器域名
+   port|Number或String|是|-|某个交易服务器端口号
    https|Boolean|是|-|true为https,false为http
+   urls|Array|是|-|某个或一组交易服务器完整的url(协议+域名+端口)
    retry|Number|否|3|交易序列号失效时,尝试重新获取的次数
 
 #### 2.2 创建挂单
@@ -121,6 +125,7 @@ const type = "buy";
 const platform = ""; 
 const issuer;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.createOrder(address, secret, amount, base, counter, sum, type, platform, issuer);
 ```
 
@@ -153,6 +158,7 @@ const address = "jxxx";
 const secret = "sxxx";
 const orderSequence = 0;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.cancelOrder(address, secret, orderSequence);
 ```
 
@@ -183,6 +189,7 @@ const to = "jxxx";
 const token = "jjcc";
 const issuer;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.transfer(address, secret, amount, memo, to, token, issuer);
 ```
 
@@ -217,6 +224,7 @@ const rateDen = "1000";
 const token = "jjcc";
 const issuer;
 JCCExchange.init(hosts, port, https, retry);
+// JCCExchange.init(urls, retry);
 const hash = await JCCExchange.setBrokerage(platformAccount, platformSecret,feeAccount, rateNum, rateDen, token, issuer);
 ```
 
