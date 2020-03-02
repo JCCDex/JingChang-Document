@@ -31,7 +31,7 @@ import JCCExchange from "jcc_exchange"
 
 * sign function
 
-  [function](https://github.com/JCCDex/jcc_exchange/blob/master/src/index.ts#L245)
+  [function](https://github.com/JCCDex/jcc_exchange/blob/master/src/util/sign.ts#L19)
 
 * parameters description
 
@@ -40,7 +40,7 @@ import JCCExchange from "jcc_exchange"
    Parameter|Type|Required|Default|Description
    :--|:--:|:--:|:--:|:--
    secret|String|true|-|transaction initiator wallet secret
-   token|String|false|swt|native token of different chains,support jingtum,bizain,seaaps chain,[ChainConfig](https://github.com/JCCDex/jcc_exchange/blob/master/src/util/config.ts#L3)
+   chain|String|false|jingtum|[Support Chain](#Support-Chain)
    tx|Object|true|-|signature object
    &emsp;Account|String|true|-|transaction initiator wallet address
    &emsp;Sequence|Number|true|-|transaction sequence
@@ -85,9 +85,22 @@ import JCCExchange from "jcc_exchange"
    :--|:--:|:--
    -|String|signed transaction data
 
-### 2. Commission order
+### 2. Set default chain and Init
 
-#### 2.1 Instance init
+#### 2.1 set default chain
+
+```javascript
+JCCExchange.setDefaultChain(chain);
+```
+**default support jingtum chain,if you want to support other chains, please set the default chain to other chain first**
+
+* parameters description
+  
+   Parameter|Type|Required|Default|Description
+   :--|:--:|:--:|:--:|:--
+   chain|String|true|-|[Support Chain](#Support-Chain)
+
+#### 2.2 Instance init
 
 ```javascript
 const hosts = ["localhost"];
@@ -95,10 +108,11 @@ const port = 80;
 const https = false;
 const urls = ["http://localhost:8080"];
 const retry = 3;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
+// JCCExchange.init(hosts, port, https, retry);
 ```
-**cancel orders, transfer, and set fees all need to be initialized before continuing.no repeat at below**
+**the above two init methods, choose one of them**
+**create orders, cancel orders, transfer, and set fees all need to be initialized before continuing.no repeat at below**
 
 * parameters description
   
@@ -110,7 +124,7 @@ JCCExchange.init(hosts, port, https, retry);
    urls|Array|true|-|full url of transaction server(protocol + domain name + port)
    retry|Number|false|3|transaction sequence expired,number of retries
 
-#### 2.2 Create order
+### 3. Create order
 
 * usage example
 
@@ -124,8 +138,7 @@ const sum = "1";
 const type = "buy";
 const platform = ""; 
 const issuer;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.createOrder(address, secret, amount, base, counter, sum, type, platform, issuer);
 ```
 
@@ -149,7 +162,7 @@ const hash = await JCCExchange.createOrder(address, secret, amount, base, counte
    :--|:--:|:--
    hash|String|transaction hash
 
-### 3. Cancel order
+### 4. Cancel order
 
 * usage example
 
@@ -157,8 +170,7 @@ const hash = await JCCExchange.createOrder(address, secret, amount, base, counte
 const address = "jxxx";
 const secret = "sxxx";
 const orderSequence = 0;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.cancelOrder(address, secret, orderSequence);
 ```
 
@@ -176,7 +188,7 @@ const hash = await JCCExchange.cancelOrder(address, secret, orderSequence);
    :--|:--:|:--
    hash|String|transaction hash
 
-### 4. Transfer
+### 5. Transfer
 
 * usage example
 
@@ -188,8 +200,7 @@ const memo = "test";
 const to = "jxxx";
 const token = "jjcc";
 const issuer;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.transfer(address, secret, amount, memo, to, token, issuer);
 ```
 
@@ -211,7 +222,7 @@ const hash = await JCCExchange.transfer(address, secret, amount, memo, to, token
    :--|:--:|:--
    hash|String|transaction hash
 
-### 5. Set brokerage
+### 6. Set brokerage
 
 * usage example
 
@@ -223,8 +234,7 @@ const rateNum = "2";
 const rateDen = "1000";
 const token = "jjcc";
 const issuer;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.setBrokerage(platformAccount, platformSecret,feeAccount, rateNum, rateDen, token, issuer);
 ```
 
@@ -259,4 +269,10 @@ const hash = await JCCExchange.setBrokerage(platformAccount, platformSecret,feeA
 Type|Description|Optinal
 |:--:|:--|:--
 String|transaction type|OfferCreate/OfferCancel/Payment/Brokerage
+
+### Support Chain
+
+Type|Description|Optinal
+|:--:|:--|:--
+String|support chain name|jingtum/bizain/seaaps
 

@@ -31,7 +31,7 @@ import JCCExchange from "jcc_exchange"
 
 * 签名函数
 
-  [函数](https://github.com/JCCDex/jcc_exchange/blob/master/src/index.ts#L245)
+  [函数](https://github.com/JCCDex/jcc_exchange/blob/master/src/util/sign.ts#L19)
 
 * 参数说明
 
@@ -40,7 +40,7 @@ import JCCExchange from "jcc_exchange"
    参数|类型|必填|默认值|描述
    :--|:--:|:--:|:--:|:--
    secret|String|是|-|交易发起方井通钱包私钥
-   token|String|否|swt|不同链的原生币种,支持jingtum,bizain,seaaps链,[ChainConfig](https://github.com/JCCDex/jcc_exchange/blob/master/src/util/config.ts#L3)
+   chain|String|否|jingtum|[Support Chain](#Support-Chain)
    tx|Object|是|-|需要签名的交易对象
    &emsp;Account|String|是|-|交易发起方井通钱包地址
    &emsp;Sequence|Number|是|-|交易序列号
@@ -85,9 +85,22 @@ import JCCExchange from "jcc_exchange"
    :--|:--:|:--
    -|String|签名后的交易数据
 
-### 2. 挂单
+### 2. 设置默认链与初始化
 
-#### 2.1 实例初始化
+#### 2.1 设置默认链
+
+```javascript
+JCCExchange.setDefaultChain(chain);
+```
+**默认支持井通链,如果要支持其他链,请先设置默认链为其他链**
+
+* 参数说明
+  
+   参数|类型|必填|默认值|描述
+   :--|:--:|:--:|:--:|:--
+   chain|String|是|-|[Support Chain](#Support-Chain)
+
+#### 2.2 实例初始化
 
 ```javascript
 const hosts = ["localhost"];
@@ -95,10 +108,11 @@ const port = 80;
 const https = false;
 const urls = ["http://localhost:8080"];
 const retry = 3;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
+// JCCExchange.init(hosts, port, https, retry);
 ```
-**取消挂单,转账,设置挂单手续费都需要初始化后才能继续,下面不在赘述**
+**上面两种init方式,选择其中一种**
+**挂单,取消挂单,转账,设置挂单手续费都需要初始化后才能继续,下面不在赘述**
 
 * 参数说明
   
@@ -110,7 +124,7 @@ JCCExchange.init(hosts, port, https, retry);
    urls|Array|是|-|某个或一组交易服务器完整的url(协议+域名+端口)
    retry|Number|否|3|交易序列号失效时,尝试重新获取的次数
 
-#### 2.2 创建挂单
+### 3. 创建挂单
 
 * 使用示例
 
@@ -124,8 +138,7 @@ const sum = "1";
 const type = "buy";
 const platform = ""; 
 const issuer;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.createOrder(address, secret, amount, base, counter, sum, type, platform, issuer);
 ```
 
@@ -149,7 +162,7 @@ const hash = await JCCExchange.createOrder(address, secret, amount, base, counte
    :--|:--:|:--
    hash|String|交易哈希
 
-### 3. 取消挂单
+### 4. 取消挂单
 
 * 使用示例
 
@@ -157,8 +170,7 @@ const hash = await JCCExchange.createOrder(address, secret, amount, base, counte
 const address = "jxxx";
 const secret = "sxxx";
 const orderSequence = 0;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.cancelOrder(address, secret, orderSequence);
 ```
 
@@ -176,7 +188,7 @@ const hash = await JCCExchange.cancelOrder(address, secret, orderSequence);
    :--|:--:|:--
    hash|String|交易哈希
 
-### 4. 转账
+### 5. 转账
 
 * 使用示例
 
@@ -188,8 +200,7 @@ const memo = "test";
 const to = "jxxx";
 const token = "jjcc";
 const issuer;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JJCCExchange.init(urls, retry);
 const hash = await JCCExchange.transfer(address, secret, amount, memo, to, token, issuer);
 ```
 
@@ -211,7 +222,7 @@ const hash = await JCCExchange.transfer(address, secret, amount, memo, to, token
    :--|:--:|:--
    hash|String|交易哈希
 
-### 5. 设置挂单手续费
+### 6. 设置挂单手续费
 
 * 使用示例
 
@@ -223,8 +234,7 @@ const rateNum = "2";
 const rateDen = "1000";
 const token = "jjcc";
 const issuer;
-JCCExchange.init(hosts, port, https, retry);
-// JCCExchange.init(urls, retry);
+JCCExchange.init(urls, retry);
 const hash = await JCCExchange.setBrokerage(platformAccount, platformSecret,feeAccount, rateNum, rateDen, token, issuer);
 ```
 
@@ -259,4 +269,10 @@ const hash = await JCCExchange.setBrokerage(platformAccount, platformSecret,feeA
 类型|描述|可能值
 |:--:|:--|:--
 String|交易类型|OfferCreate/OfferCancel/Payment/Brokerage
+
+### Support Chain
+
+类型|描述|可能值
+|:--:|:--|:--
+String|支持链的名称|jingtum/bizain/seaaps
 
