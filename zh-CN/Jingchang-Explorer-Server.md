@@ -530,35 +530,8 @@
    msg|String|消息描述|-|-
    data|Number|个人排名| 如果没有持有，则data返回空|-
 
-### 9. 查看银关地址发行过tokens
 
-* route
-
-   `/wallet/fingate_tokenlist/:uuid?w=`
-
-* method
-
-   `get`
-
-* 请求参数
-
-   参数|类型|必填|可选值 |默认值|描述
-   --|:--:|:--:|:--:|:--:|:--
-   uuid|String|是|-|-|唯一id
-   w|String|是|-|-|银关地址
-
-* 返回结果
-
-   字段|类型|描述|备注|可能值
-   :--|:--:|:--|:--|:--
-   code|String|-|"0"表示成功|-
-   msg|String|消息描述|-|-
-   data|Object|查询结果|-|-
-   &emsp;(key为银关地址)|Array|-|-|-
-   &emsp;&emsp;currency|String|token名称|-|-
-   &emsp;&emsp;issuer|String|发行方地址|-|-
-
-### 10. 查询某个token在某个时间段内的转账交易hash信息
+### 9. 查询某个token在某个时间段内的转账交易hash信息
 
 * route
 
@@ -601,7 +574,7 @@
    &emsp;&emsp;dest|String|对方钱包地址|-|-
    &emsp;&emsp;amount|[Amount](#Amount-Object)|支付币种和数量|-|-
 
-### 11. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
+### 10. 查询某个钱包每天/月/年的支付或收到某个token的笔数和数量
 
 * route
 
@@ -638,7 +611,7 @@
 
    1. 如果某个钱包有转出或收到某个token，这时若没有指定type类型，则会返回2条记录信息如果某个钱包有转出多个token，若没有指定token名称，则会返回多条记录。
 
-### 12. 查询收费平台对应token的收费详情接口
+### 11. 查询收费平台对应token的收费详情接口
 
 * route
 
