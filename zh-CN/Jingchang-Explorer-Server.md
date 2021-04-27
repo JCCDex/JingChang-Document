@@ -648,6 +648,121 @@
    &emsp;&emsp;time|Number|设置时间|-|-
    &emsp;data[1]|Number|符合条件数量|用于分组|-
 
+### 12. 手续费记录查询接口
+
+* route
+
+   `/explorer/v1/fee/history:uuid?`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   plat|String|是|-|-|平台手续费钱包地址
+   get|String|是|-|-|兑入通证(收费通证,通证名称_发行方地址)
+   pay|String|否|-|-|兑出通证(通证名称_发行方地址)
+   w|String|否|-|-|交易钱包地址
+   bt|String|否|-|-|开始时间(例如:2021-04-01，不能超过当前时间),不传值，表示以当前选取的结束时间往前退3个月为开始时间
+   et|String|否|-|-|结束时间(例如:2021-04-01，不能超过当前时间),不传值，表示以当前时间为结束时间
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;list|Array|手续费记录|-|-
+   &emsp;&emsp;time|Number|交易时间|-|-
+   &emsp;&emsp;get|String|兑入通证名称,通证名称_发行方地址|-|-
+   &emsp;&emsp;pay|String|兑出通证名称,通证名称_发行方地址|-|-
+   &emsp;&emsp;amount|Number|手续费|-|-
+   &emsp;&emsp;rate|String|费率|-|-
+   &emsp;&emsp;hash|String|交易hash|-|-
+   &emsp;&emsp;time|Number|设置时间|-|-
+
+### 13. 手续费排名查询接口
+
+* route
+
+   `/explorer/v1/fee/rank:uuid?
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   plat|String|是|-|-|平台手续费钱包地址
+   get|String|是|-|-|兑入通证(收费通证,通证名称_发行方地址)
+   pay|String|否|-|-|兑出通证(通证名称_发行方地址)
+   t|String|是|-|-|颗粒度类型,2:日，3:月, 4:年
+   ws|String|否|-|-|交易钱包地址数组(必须是多钱包,至少2隔钱包，多钱包用,隔开)
+   bt|String|是|-|-|开始时间(t=2（日）时：b的格式2020-04-01,t=3(月)，b的格式2020-04；t=4(年)，b的格式2020例如:2021-04-01，不能超过当前时间),
+   et|String|是|-|-|参照bt
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+    &emsp;feeTotal|Number|手续费合计|-|-
+   &emsp;list|Array|查询结果|-|-
+   &emsp;&emsp;wallet|String|交易钱包地址|-|-
+   &emsp;&emsp;amount|Number|手续费|-|-
+
+### 14. 手续费汇总查询接口
+
+* route
+
+   `/explorer/v1/fee/total:uuid?
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   plat|String|是|-|-|平台手续费钱包地址
+   get|String|是|-|-|兑入通证(收费通证,通证名称_发行方地址)
+   pay|String|否|-|-|兑出通证(通证名称_发行方地址),不传表示全部通证
+   t|String|是|-|-|颗粒度类型,2:日，3:月, 4:年
+   bt|String|是|-|-|开始时间(t=2（日）时：b的格式2020-04-01,t=3(月)，b的格式2020-04；t=4(年)，b的格式2020例如:2021-04-01，不能超过当前时间),
+   et|String|是|-|-|参照bt
+   p|Number|是|-|-|页数，从0开始
+   s|Number|否|10/20/50/100|20|每页条数
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+    &emsp;feeTotal|Number|手续费合计|-|-
+   &emsp;list|Array|查询结果|-|-
+   &emsp;&emsp;time|Number|交易时间|-|-
+   &emsp;&emsp;get|String|是|-|-|兑入通证(收费通证,通证名称_发行方地址)
+   &emsp;&emsp;pay|String|否|-|-|兑出通证(通证名称_发行方地址)
+   &emsp;&emsp;amount|Number|手续费|-|-
+
 ## 附录
 
 ### 交易对说明
