@@ -98,6 +98,12 @@
    uuid|String|是|-|-|唯一id
    p|Number|是|-|-|页数，从0开始
    s|Number|是|10/20/50/100|20|每页条数
+   b|String|否|-|-|开始日期，形如YYYY-MM-DD
+   e|String|否|-|-|结束日期，形如YYYY-MM-DD
+   t|String|否|OfferCreate/OfferAffect/OfferCancel/Send/Receive|-|交易类型（多个类型以逗号分隔，可以不传值，不传值表示查询所有类型）
+   bs|Number|否|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
+   c|String|否|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
+   f|Number|否|0/1/3|-|这个参数是查询历史记录中特定交易的，同样有此参数的接口是[5.3]，当t=OfferCreate&f=0时候查询主动成交记录，t=OfferCreate&f=1是多被动方记录，t=Payment&f=3转账失败交易，非上述特地交易请不要传这个参数
 
 * 返回结果
 
@@ -378,6 +384,7 @@
    c|String|否|-|-|交易对或币种（可以不传值，不传值表示币种不作为查询条件。在t=OfferCreate或OfferAffect或OfferCancel时，传值必须形如：SWTC-CNY或swtc-cny，必须是交易对本来的顺序base-counter的形式，比如这里不能是CNY-SWTC，否则买卖关系可能就乱了，另外交易对可以只指定base或counter，如swtc-或-cny，所有的交易对请参见附录；在t=Send或Receive时，传值必须长度<8，如JJCC）
    bs|Number|否|0:买或卖<br>1:买<br>2:卖|-|只有在t=OfferCreate或OfferAffect或OfferCancel时有效果
    w|String|是|-|-|钱包地址
+   f|Number|否|0/3|-|这个参数是查询历史记录中特定交易的，同样有此参数的接口是[1.2]，当t=OfferAffect,OfferCreate&f=0时候就是查询合并交易记录（包含主动成交和被动成交，这里时间范围b和f之差不能超过三个月），t=Payment&f=3转账失败，非上述特地交易请不要传这个参数
 
 * 返回结果
 
