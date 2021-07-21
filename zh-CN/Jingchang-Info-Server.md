@@ -88,6 +88,8 @@ array[2]|Number|价格
 array[3]|Timestamp|成交时间(毫秒)
 array[4]|Number|成交类型 0-买 1-卖
 array[5]|Number|撮合标记 1-非撮合 3-3方撮合 4-4方撮合 5-5方撮合 6-6方撮合
+array[6]|String|交易币种1 takerGets.currency
+array[7]|String|交易币种2 takerPays.currency
 
 返回示例
 
