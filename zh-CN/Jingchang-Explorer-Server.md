@@ -828,7 +828,7 @@ RelationDel|-|String
 SetBlackList|设置黑名单|String
 RemoveBlackList|撤销黑名单|String
 ManageIssuer|设置发币账号|String
-PaymSetRegularKeyent|-|String
+SetRegularKey|-|String
 
 ### Memo Object
 
