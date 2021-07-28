@@ -817,9 +817,18 @@
 
 ### Transaction Type
 
-类型|描述|可能值
-|:--:|:--|:--
-String|交易类型|Payment/OfferCreate/OfferCancel/TrustSet/RelationSet<br>RelationDel/SetBlackList/RemoveBlackList/ManageIssuer/SetRegularKey
+名称|描述|类型
+:--:|:--|:--
+Payment|转账|String
+OfferCreate|挂单|String
+OfferCancel|撤单|String
+TrustSet|-|String
+RelationSet|-|String
+RelationDel|-|String
+SetBlackList|设置黑名单|String
+RemoveBlackList|撤销黑名单|String
+ManageIssuer|设置发币账号|String
+PaymSetRegularKeyent|-|String
 
 ### Memo Object
 
