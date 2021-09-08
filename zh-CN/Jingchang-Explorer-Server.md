@@ -650,6 +650,147 @@
    &emsp;&emsp;num|Number|费率分子|-|-
    &emsp;&emsp;time|Number|设置时间|-|-
    &emsp;data[1]|Number|符合条件数量|用于分组|-
+   
+### 13. 交易数统计
+
+* route
+
+   `/sum/trans_num/:uuid?t=&d=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   t|Number|否|1/2/3/4|2|查询交易类型（可以不传值，默认为2，对应关系为1:小时；2:日；3:月；4:年）
+   d|Number|否|-|90|表示从当前日期开始前多少天前到现在的数据
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;bTime|Number|开始时间|-|-
+   &emsp;type|Number|查询交易类型|-|-
+   &emsp;bBlock|Number|开始区块|-|-
+   &emsp;eBlock|Number|结束区块|-|-
+   &emsp;eTime|Number|结束时间|-|-
+   &emsp;transNum|Number|平台方钱包地址|-|-
+   
+### 14. 用户增长统计
+
+* route
+
+   `/sum/users_num/:uuid?t=&d=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   t|Number|否|1/2/3/4|2|查询交易类型（可以不传值，默认为2，对应关系为1:小时；2:日；3:月；4:年）
+   d|Number|否|-|90|表示从当前日期开始前多少天前到现在的数据
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;bTime|Number|开始时间|-|-
+   &emsp;type|Number|查询交易类型|-|-
+   &emsp;eTime|Number|结束时间|-|-
+   &emsp;userNum|Number|用户数量|-|-
+   &emsp;total|Number|用户总数|-|-
+   
+### 15. 收益分析
+
+* route
+
+   `/sum/profit/balance/:uuid?p=&s=&b=&e=&w=&t=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   p|Number|是|-|0|表示页数，必须传值，0表示第一页
+   w|String|是|-|-|查询的钱包地址，必须传值
+   s|Number|否|-|100|每页显示条数，可以不传值，默认100
+   b|Date|否|-|-|开始日期，可以不传值，格式2020-8-8
+   e|Date|否|-|-|结束日期，可以不传值，格式2020-8-8
+   t|String|是|-|-|查询的通证名称，必须传值，格式名称+发行方，SWTC直接传SWTC，多个通证直接用逗号隔开
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;token名称和发行方地址，下划线连接，例如SWTC/CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or|String|每日收益信息|-|-
+   &emsp;&emsp;createdTime|Number|查询时间，转换为正常时间new Date((createdTime + 946684800) * 1000)|-|-
+   &emsp;&emsp;token名称和发行方地址，下划线连接，例如SWTC/CNY_jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or|Number|每一天的收益数量|-|-
+   &emsp;&emsp;&emsp;value|Number|SWTC收益值|如果上面token名称为SWTC，则有下面属性|-
+   &emsp;&emsp;&emsp;ownerCount|Number|ownerCount|如果上面token名称为SWTC，则有下面属性|-
+   &emsp;&emsp;&emsp;seq|Number|交易seq|如果上面token名称为SWTC，则有下面属性|-
+
+   
+### 16. 手续费汇总查询统计
+
+* route
+
+   `1)/sum/fees_sum/:uuid?w=&p=&s=&t=&b=&e=&c1=&c2=`
+
+* method
+
+   `get`
+
+* 请求参数
+
+   参数|类型|必填|可选值 |默认值|描述
+   --|:--:|:--:|:--:|:--:|:--
+   uuid|String|是|-|-|唯一id
+   t|Number|是|2/3/4|2|表示查询交易类型（可以不传值，默认为2，对应关系为2:日；3:月；4:年）
+   w|String|是|-|-|表示平台对应的手续钱包地址
+   b|Number|否|-|0|表示页数，默认为0，表示第一页，可以不传值
+   s|Number|否|-|20|表示每页显示条数，默认20
+   b|Date|是|-|-|表示开始日期，和t的值有关系，t=2（日）时，b的格式2020-8-8；t=3，b的格式2020-8；t=4，b的格式2020
+   e|Date|是|-|-|表示结束日期，格式要求同b
+   c1|String|否|-|-|表示兑出通证，可以不传值
+   c2|String|是|-|-|表示兑入通证，即收费通证，必须传值
+
+* 返回结果
+
+   字段|类型|描述|备注|可能值
+   :--|:--:|:--|:--|:--
+   code|String|-|"0"表示成功|-
+   msg|String|消息描述|-|-
+   data|Object|查询结果|-|-
+   &emsp;list|Array|各币种手续费收费列表|-|-
+   &emsp;&emsp;token1|String|收费通证交易对|-|-
+   &emsp;&emsp;token2|String|收费通证交易对|-|-
+   &emsp;&emsp;token1的值|Number|收取手续费值|-|-
+   &emsp;&emsp;feeAccount|String|收费钱包地址|-|-
+   &emsp;&emsp;type|Number|交易类型，对应关系为2:日；3:月；4:年|-|-
+   &emsp;&emsp;bTime|Number|时间戳|-|-
+   &emsp;summary|JSON|各币种手续费汇总统计|-|-
+   &emsp;count|Number|收取手续费的交易对币种数量|-|-
 
 ### 12. 手续费记录查询接口
 
